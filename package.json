@@ -2,10 +2,26 @@
   "name": "vue-modal",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "./dist/modal.umd.cjs",
+  "module": "./dist/modal.js",
   "scripts": {
+    "build": "vite build"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/modal.js",
+      "require": "./dist/modal.umd.csj"
+    }
   },
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.4.7"
+  }
 }
