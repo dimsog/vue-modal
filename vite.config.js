@@ -5,6 +5,7 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
     plugins: [vue()],
     build: {
+        cssCodeSplit: false,
         lib: {
             entry: resolve(__dirname, "src/Modal.ts"),
             name: 'Modal',

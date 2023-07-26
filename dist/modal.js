@@ -1,12 +1,12 @@
-import { defineComponent as r, ref as i, onMounted as u, onUnmounted as m, openBlock as _, createElementBlock as p, createElementVNode as t, toDisplayString as f, renderSlot as h } from "vue";
-const n = /* @__PURE__ */ new Map(), v = (o, e) => {
-  n.set(o, e);
-}, l = (o) => {
-  const e = n.get(o);
-  return e === void 0 ? null : e;
-}, M = (o) => {
-  n.delete(o);
-}, g = { class: "modal" }, y = { class: "modal-header" }, S = { class: "modal-header__title" }, b = /* @__PURE__ */ t("div", { class: "modal-header__buttons" }, null, -1), k = { class: "modal-body" }, E = /* @__PURE__ */ r({
+import { defineComponent as _, ref as a, onMounted as m, onUnmounted as v, openBlock as c, createElementBlock as i, createElementVNode as n, toDisplayString as h, renderSlot as f, createCommentVNode as y, pushScopeId as g, popScopeId as S, nextTick as M } from "vue";
+const s = /* @__PURE__ */ new Map(), k = (e, t) => {
+  s.set(e, t);
+}, r = (e) => {
+  const t = s.get(e);
+  return t === void 0 ? null : t;
+}, x = (e) => {
+  s.delete(e);
+}, w = (e) => (g("data-v-c22269f4"), e = e(), S(), e), I = { class: "modal-header" }, E = { class: "modal-header__title" }, $ = /* @__PURE__ */ w(() => /* @__PURE__ */ n("div", { class: "modal-header__buttons" }, null, -1)), b = { class: "modal-body" }, q = /* @__PURE__ */ _({
   __name: "Modal",
   props: {
     name: {
@@ -17,42 +17,63 @@ const n = /* @__PURE__ */ new Map(), v = (o, e) => {
       type: String,
       required: !1,
       default: null
+    },
+    width: {
+      type: String,
+      default: "800px"
+    },
+    height: {
+      type: String,
+      default: "600px"
     }
   },
-  setup(o) {
-    const e = o, s = i(!1), d = () => {
-      s.value = !0;
-    }, a = () => {
-      s.value = !1;
-    };
-    return u(() => {
-      v(e.name, {
-        open: d,
-        close: a
+  setup(e) {
+    const t = e, l = a(!1), o = a(null), d = () => {
+      l.value = !0, M(() => {
+        o.value !== null && (o.value.style.width = t.width, o.value.style.height = t.height, o.value.style.top = document.documentElement.clientHeight / 2 - o.value.clientHeight / 2, o.value.style.left = document.documentElement.clientWidth / 2 - o.value.clientWidth / 2);
       });
-    }), m(() => {
-      M(e.name);
-    }), (c, q) => (_(), p("div", null, [
-      t("div", g, [
-        t("div", y, [
-          t("div", S, f(o.title), 1),
-          b
+    }, u = () => {
+      l.value = !1;
+    };
+    return m(() => {
+      k(t.name, {
+        open: d,
+        close: u
+      });
+    }), v(() => {
+      x(t.name);
+    }), (p, C) => (c(), i("div", null, [
+      l.value ? (c(), i("div", {
+        key: 0,
+        ref_key: "$modal",
+        ref: o,
+        class: "modal"
+      }, [
+        n("div", I, [
+          n("div", E, h(e.title), 1),
+          $
         ]),
-        t("div", k, [
-          h(c.$slots, "default")
+        n("div", b, [
+          f(p.$slots, "default", {}, void 0, !0)
         ])
-      ])
+      ], 512)) : y("", !0)
     ]));
   }
-}), w = (o) => {
-  var e;
-  (e = l(o)) == null || e.open();
-}, x = (o) => {
-  var e;
-  (e = l(o)) == null || e.close();
+});
+const B = (e, t) => {
+  const l = e.__vccOpts || e;
+  for (const [o, d] of t)
+    l[o] = d;
+  return l;
+}, N = /* @__PURE__ */ B(q, [["__scopeId", "data-v-c22269f4"]]), O = (e) => {
+  var t;
+  (t = r(e)) == null || t.open();
+}, V = (e) => {
+  var t;
+  (t = r(e)) == null || t.close();
 };
 export {
-  E as Modal,
-  x as close,
-  w as open
+  N as Modal,
+  V as close,
+  O as open
 };
