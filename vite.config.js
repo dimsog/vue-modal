@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [vue()],
     build: {
         lib: {
-            entry: resolve(__dirname, "src/Modal.js"),
+            entry: resolve(__dirname, "src/Modal.ts"),
             name: 'Modal',
             fileName: 'modal'
         },
