@@ -1,15 +1,12 @@
-import { defineComponent as r, ref as i, onMounted as u, onUnmounted as m, openBlock as p, createElementBlock as _, createElementVNode as t, renderSlot as f } from "vue";
+import { defineComponent as r, ref as i, onMounted as u, onUnmounted as m, openBlock as _, createElementBlock as p, createElementVNode as t, toDisplayString as f, renderSlot as h } from "vue";
 const n = /* @__PURE__ */ new Map(), v = (o, e) => {
   n.set(o, e);
 }, l = (o) => {
   const e = n.get(o);
   return e === void 0 ? null : e;
-}, h = (o) => {
+}, M = (o) => {
   n.delete(o);
-}, M = { class: "modal" }, g = /* @__PURE__ */ t("div", { class: "modal-header" }, [
-  /* @__PURE__ */ t("div", { class: "modal-header__title" }),
-  /* @__PURE__ */ t("div", { class: "modal-header__buttons" })
-], -1), y = { class: "modal-body" }, k = /* @__PURE__ */ r({
+}, g = { class: "modal" }, y = { class: "modal-header" }, S = { class: "modal-header__title" }, b = /* @__PURE__ */ t("div", { class: "modal-header__buttons" }, null, -1), k = { class: "modal-body" }, E = /* @__PURE__ */ r({
   __name: "Modal",
   props: {
     name: {
@@ -34,25 +31,28 @@ const n = /* @__PURE__ */ new Map(), v = (o, e) => {
         close: a
       });
     }), m(() => {
-      h(e.name);
-    }), (c, S) => (p(), _("div", null, [
-      t("div", M, [
-        g,
+      M(e.name);
+    }), (c, q) => (_(), p("div", null, [
+      t("div", g, [
         t("div", y, [
-          f(c.$slots, "default")
+          t("div", S, f(o.title), 1),
+          b
+        ]),
+        t("div", k, [
+          h(c.$slots, "default")
         ])
       ])
     ]));
   }
-}), q = (o) => {
+}), w = (o) => {
   var e;
   (e = l(o)) == null || e.open();
-}, B = (o) => {
+}, x = (o) => {
   var e;
   (e = l(o)) == null || e.close();
 };
 export {
-  k as Modal,
-  B as close,
-  q as open
+  E as Modal,
+  x as close,
+  w as open
 };

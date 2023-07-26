@@ -3,7 +3,7 @@
     <div class="modal">
       <div class="modal-header">
         <div class="modal-header__title">
-
+          {{ title }}
         </div>
         <div class="modal-header__buttons">
 
