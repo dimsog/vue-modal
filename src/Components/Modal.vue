@@ -30,6 +30,8 @@
 import { onMounted, onUnmounted, ref, nextTick } from "vue";
 import { addModal, deleteModal } from "../utils/ModalStorage.js";
 import modalResizer from "../utils/modal-resizer";
+import initModalSizeAndPos from "../utils/initModalSizeAndPos";
+import { ModalPosition } from "../Types/ModalPosition";
 
 const modalIsOpened = ref(false);
 const props = defineProps({
@@ -57,21 +59,26 @@ const $headerWrapper = ref<HTMLElement | null>(null);
 const $header = ref<HTMLElement | null>(null);
 const $modalBody = ref<HTMLElement | null>(null);
 
+let modalPosition: ModalPosition = {
+  x: null,
+  y: null,
+  width: Number(props.width.replace('px', '')),
+  height: Number(props.height.replace('px', ''))
+}
+
 const open = (): void => {
   modalIsOpened.value = true;
 
-  nextTick((): void => {
+  nextTick(async (): void => {
     if ($modal.value === null || $header.value == null) {
       return;
     }
-    $modal.value.style.width = props.width;
-    $modal.value.style.height = props.height;
-    $modal.value.style.top = (document.documentElement.clientHeight / 2 - $modal.value.clientHeight / 2) + 'px';
-    $modal.value.style.left = (document.documentElement.clientWidth / 2 - $modal.value.clientWidth / 2) + 'px';
 
+    initModalSizeAndPos($modal.value, modalPosition);
+    modalResizer($header.value, $modal.value, (position: ModalPosition) => {
+      modalPosition = position;
+    });
     $modalBody.value.style.height = `calc(100% - ${$headerWrapper.value.clientHeight}px)`;
-
-    modalResizer($header.value, $modal.value);
   })
 };
 

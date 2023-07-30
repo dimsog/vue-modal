@@ -1,7 +1,8 @@
 import modalCursor from "./modal-cursor";
 import modalResizeType from "./modal-resize-type";
+import {ModalPosition} from "../Types/ModalPosition";
 
-export default ($header: HTMLElement, $modal: HTMLElement) => {
+export default ($header: HTMLElement, $modal: HTMLElement, callback: (modalPosition: ModalPosition) => {}) => {
     let isMoving = false;
     $modal.addEventListener('mousemove', (e) => {
         if (isMoving) {
@@ -76,6 +77,13 @@ export default ($header: HTMLElement, $modal: HTMLElement) => {
             $modal.style.height = height + 'px';
             $modal.style.left = left + 'px';
             $modal.style.top = top + 'px';
+
+            callback({
+                x: $modal.getBoundingClientRect().x,
+                y: $modal.getBoundingClientRect().y,
+                width: $modal.clientWidth,
+                height: $modal.clientHeight
+            });
         });
 
         $modal.addEventListener('mouseup', () => {
@@ -92,6 +100,13 @@ export default ($header: HTMLElement, $modal: HTMLElement) => {
         const move = function (e: MouseEvent) {
             $modal.style.top = (e.pageY - y) + 'px';
             $modal.style.left = (e.pageX - x) + 'px';
+
+            callback({
+                x: $modal.getBoundingClientRect().x,
+                y: $modal.getBoundingClientRect().y,
+                width: $modal.clientWidth,
+                height: $modal.clientHeight
+            })
         }
 
         document.addEventListener('mousemove', move);
