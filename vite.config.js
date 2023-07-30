@@ -8,7 +8,7 @@ export default defineConfig({
     build: {
         cssCodeSplit: false,
         lib: {
-            entry: resolve(__dirname, "src/Modal.ts"),
+            entry: resolve(__dirname, "src/modal.ts"),
             name: 'Modal',
             fileName: 'modal'
         },

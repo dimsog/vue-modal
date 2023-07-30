@@ -1,11 +1,11 @@
 import Modal from "./Components/Modal.vue";
 import { getModal } from "./utils/ModalStorage";
 
-const open = (modalName): void => {
+const open = (modalName: string): void => {
     getModal(modalName)?.open();
 }
 
-const close = (modalName) => {
+const close = (modalName: string) => {
     getModal(modalName)?.close();
 }
 
