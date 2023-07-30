@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="$modal" class="modal" v-if="modalIsOpened">
+    <div ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened}">
       <div ref="$headerWrapper" class="modal-header-wrapper">
         <div ref="$header" class="modal-header">
           <div class="modal-header__title">
@@ -99,6 +99,9 @@ onUnmounted((): void => {
 </script>
 
 <style lang="scss" scoped>
+.modal--hidden {
+  display: none;
+}
 .modal {
   font-family: sans-serif;
   position: absolute;
