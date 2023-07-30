@@ -1,12 +1,57 @@
-import { defineComponent as g, ref as a, onMounted as y, onUnmounted as k, openBlock as v, createElementBlock as m, createElementVNode as n, toDisplayString as w, withModifiers as x, renderSlot as M, createCommentVNode as b, nextTick as S, pushScopeId as E, popScopeId as C } from "vue";
-const i = /* @__PURE__ */ new Map(), B = (e, t) => {
-  i.set(e, t);
-}, h = (e) => {
-  const t = i.get(e);
+import { defineComponent as x, ref as v, onMounted as k, onUnmounted as M, openBlock as y, createElementBlock as m, createElementVNode as a, toDisplayString as E, withModifiers as C, renderSlot as B, createCommentVNode as S, nextTick as z, pushScopeId as L, popScopeId as R } from "vue";
+const _ = /* @__PURE__ */ new Map(), H = (n, t) => {
+  _.set(n, t);
+}, w = (n) => {
+  const t = _.get(n);
   return t === void 0 ? null : t;
-}, I = (e) => {
-  i.delete(e);
-}, $ = (e) => (E("data-v-d29e728b"), e = e(), C(), e), L = { class: "modal-header__title" }, H = { class: "modal-header__buttons" }, q = ["onClick"], N = /* @__PURE__ */ $(() => /* @__PURE__ */ n("svg", {
+}, I = (n) => {
+  _.delete(n);
+}, b = (n, t, e) => n - e.left > -10 && n - e.left < 10 && t - e.top > -10 && t - e.top < 10 ? "top-left" : e.right - n > -10 && e.right - n < 10 && t - e.top > -10 && t - e.top < 10 ? "top-right" : e.bottom - t > -10 && e.bottom - t < 10 && n - e.left > -10 && n - e.left < 10 ? "bottom-left" : e.bottom - t > -10 && e.bottom - t < 10 && e.right - n > -10 && e.right - n < 10 ? "bottom-right" : n - e.left > -5 && n - e.left < 5 ? "left" : e.right - n > -5 && e.right - n < 5 ? "right" : t - e.top > -5 && t - e.top < 5 ? "top" : e.bottom - t > -5 && e.bottom - t < 5 ? "bottom" : null, W = (n, t, e) => {
+  switch (b(n, t, e)) {
+    case "left":
+    case "right":
+      return "col-resize";
+    case "top":
+    case "bottom":
+      return "row-resize";
+    case "top-left":
+    case "bottom-right":
+      return "nwse-resize";
+    case "top-right":
+    case "bottom-left":
+      return "nesw-resize";
+    default:
+      return "";
+  }
+}, T = (n, t) => {
+  let e = !1;
+  t.addEventListener("mousemove", (o) => {
+    if (e)
+      return;
+    const l = t.getBoundingClientRect();
+    t.style.cursor = W(o.clientX, o.clientY, l);
+  }), t.addEventListener("mousedown", (o) => {
+    if (e)
+      return;
+    o.preventDefault(), o.stopPropagation();
+    const l = o.clientX, s = o.clientY, r = t.getBoundingClientRect(), c = t.clientWidth, p = t.clientHeight;
+    let d = b(o.clientX, o.clientY, r), u = c, f = p, h = r.top, g = r.left;
+    document.addEventListener("mousemove", (i) => {
+      d !== null && (d === "left" && (g = r.left + (i.clientX - l), u = c - (i.clientX - l)), d === "right" && (u = c + (i.clientX - l)), d === "top" && (h = r.top + (i.clientY - s), f = p - (i.clientY - s)), d === "bottom" && (f = p + (i.clientY - s)), d == "top-left" && (g = r.left + (i.clientX - l), u = c - (i.clientX - l), h = r.top + (i.clientY - s), f = p - (i.clientY - s)), d == "top-right" && (u = c + (i.clientX - l), h = r.top + (i.clientY - s), f = p - (i.clientY - s)), d == "bottom-left" && (g = r.left + (i.clientX - l), u = c - (i.clientX - l), f = p + (i.clientY - s)), d == "bottom-right" && (u = c + (i.clientX - l), f = p + (i.clientY - s)), t.style.width = u + "px", t.style.height = f + "px", t.style.left = g + "px", t.style.top = h + "px");
+    }), t.addEventListener("mouseup", () => {
+      d = null;
+    });
+  }), n.addEventListener("mousedown", (o) => {
+    let l = o.clientX - t.getBoundingClientRect().left, s = o.clientY - t.getBoundingClientRect().top;
+    e = !0;
+    const r = function(c) {
+      t.style.top = c.pageY - s + "px", t.style.left = c.pageX - l + "px";
+    };
+    document.addEventListener("mousemove", r), n.addEventListener("mouseup", () => {
+      document.removeEventListener("mousemove", r), e = !1;
+    });
+  });
+}, X = (n) => (L("data-v-ccec40c9"), n = n(), R(), n), Y = { class: "modal-header-wrapper" }, q = { class: "modal-header__title" }, D = { class: "modal-header__buttons" }, N = ["onClick"], O = /* @__PURE__ */ X(() => /* @__PURE__ */ a("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   class: "icon icon-tabler icon-tabler-x",
   width: "24",
@@ -18,16 +63,16 @@ const i = /* @__PURE__ */ new Map(), B = (e, t) => {
   "stroke-linecap": "round",
   "stroke-linejoin": "round"
 }, [
-  /* @__PURE__ */ n("path", {
+  /* @__PURE__ */ a("path", {
     stroke: "none",
     d: "M0 0h24v24H0z",
     fill: "none"
   }),
-  /* @__PURE__ */ n("path", { d: "M18 6l-12 12" }),
-  /* @__PURE__ */ n("path", { d: "M6 6l12 12" })
-], -1)), O = [
-  N
-], R = { class: "modal-body" }, V = /* @__PURE__ */ g({
+  /* @__PURE__ */ a("path", { d: "M18 6l-12 12" }),
+  /* @__PURE__ */ a("path", { d: "M6 6l12 12" })
+], -1)), V = [
+  O
+], j = /* @__PURE__ */ x({
   __name: "Modal",
   props: {
     name: {
@@ -48,70 +93,68 @@ const i = /* @__PURE__ */ new Map(), B = (e, t) => {
       default: "400px"
     }
   },
-  setup(e) {
-    const t = e, l = a(!1), o = a(null), d = a(null), _ = () => {
-      l.value = !0, S(() => {
-        o.value !== null && (o.value.style.width = t.width, o.value.style.height = t.height, o.value.style.top = document.documentElement.clientHeight / 2 - o.value.clientHeight / 2, o.value.style.left = document.documentElement.clientWidth / 2 - o.value.clientWidth / 2, d.value !== null && d.value.addEventListener("mousedown", (s) => {
-          let r = s.clientX - o.value.getBoundingClientRect().left, f = s.clientY - o.value.getBoundingClientRect().top;
-          const u = function(p) {
-            o.value.style.top = p.pageY - f + "px", o.value.style.left = p.pageX - r + "px";
-          };
-          document.addEventListener("mousemove", u), d.value.addEventListener("mouseup", () => {
-            document.removeEventListener("mousemove", u);
-          });
-        }));
+  setup(n) {
+    const t = n, e = v(!1), o = v(null), l = v(null), s = v(null), r = () => {
+      e.value = !0, z(() => {
+        o.value === null || l.value == null || (o.value.style.width = t.width, o.value.style.height = t.height, o.value.style.top = document.documentElement.clientHeight / 2 - o.value.clientHeight / 2 + "px", o.value.style.left = document.documentElement.clientWidth / 2 - o.value.clientWidth / 2 + "px", T(l.value, o.value));
       });
     }, c = () => {
-      l.value = !1;
+      e.value = !1;
     };
-    return y(() => {
-      B(t.name, {
-        open: _,
+    return k(() => {
+      H(t.name, {
+        open: r,
         close: c
       });
-    }), k(() => {
+    }), M(() => {
       I(t.name);
-    }), (s, r) => (v(), m("div", null, [
-      l.value ? (v(), m("div", {
+    }), (p, d) => (y(), m("div", null, [
+      e.value ? (y(), m("div", {
         key: 0,
         ref_key: "$modal",
         ref: o,
         class: "modal"
       }, [
-        n("div", {
-          ref_key: "$header",
-          ref: d,
-          class: "modal-header"
+        a("div", Y, [
+          a("div", {
+            ref_key: "$header",
+            ref: l,
+            class: "modal-header"
+          }, [
+            a("div", q, E(n.title), 1),
+            a("div", D, [
+              a("button", {
+                type: "button",
+                onClick: C(c, ["prevent"])
+              }, V, 8, N)
+            ])
+          ], 512)
+        ]),
+        a("div", {
+          ref_key: "$modalBody",
+          ref: s,
+          class: "modal-body"
         }, [
-          n("div", L, w(e.title), 1),
-          n("div", H, [
-            n("button", {
-              type: "button",
-              onClick: x(c, ["prevent"])
-            }, O, 8, q)
-          ])
-        ], 512),
-        n("div", R, [
-          M(s.$slots, "default", {}, void 0, !0)
-        ])
-      ], 512)) : b("", !0)
+          B(p.$slots, "default", {}, void 0, !0)
+        ], 512)
+      ], 512)) : S("", !0)
     ]));
   }
 });
-const W = (e, t) => {
-  const l = e.__vccOpts || e;
-  for (const [o, d] of t)
-    l[o] = d;
-  return l;
-}, Y = /* @__PURE__ */ W(V, [["__scopeId", "data-v-d29e728b"]]), j = (e) => {
+const P = (n, t) => {
+  const e = n.__vccOpts || n;
+  for (const [o, l] of t)
+    e[o] = l;
+  return e;
+}, A = /* @__PURE__ */ P(j, [["__scopeId", "data-v-ccec40c9"]]), F = (n) => {
   var t;
-  (t = h(e)) == null || t.open();
-}, z = (e) => {
+  (t = w(n)) == null || t.open();
+}, G = (n) => {
   var t;
-  (t = h(e)) == null || t.close();
+  (t = w(n)) == null || t.close();
 };
 export {
-  Y as Modal,
-  z as close,
-  j as open
+  A as Modal,
+  G as close,
+  F as open
 };
