@@ -12,7 +12,11 @@
     "build": "vite build"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Dmitry R",
+    "email": "dimsog@gmail.com"
+  },
+  "homepage": "https://vuemodal.com",
   "license": "MIT",
   "dependencies": {
     "vue": "^3.3.4"
