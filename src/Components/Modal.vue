@@ -1,7 +1,7 @@
 <template>
   <div>
     <div ref="$modal" class="modal" v-if="modalIsOpened">
-      <div class="modal-header-wrapper">
+      <div ref="$headerWrapper" class="modal-header-wrapper">
         <div ref="$header" class="modal-header">
           <div class="modal-header__title">
             {{ title }}
@@ -18,7 +18,9 @@
         </div>
       </div>
       <div ref="$modalBody" class="modal-body">
-        <slot></slot>
+        <div class="modal-body__content">
+          <slot></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -51,6 +53,7 @@ const props = defineProps({
 });
 
 const $modal = ref<HTMLElement | null>(null);
+const $headerWrapper = ref<HTMLElement | null>(null);
 const $header = ref<HTMLElement | null>(null);
 const $modalBody = ref<HTMLElement | null>(null);
 
@@ -65,6 +68,8 @@ const open = (): void => {
     $modal.value.style.height = props.height;
     $modal.value.style.top = (document.documentElement.clientHeight / 2 - $modal.value.clientHeight / 2) + 'px';
     $modal.value.style.left = (document.documentElement.clientWidth / 2 - $modal.value.clientWidth / 2) + 'px';
+
+    $modalBody.value.style.height = `calc(100% - ${$headerWrapper.value.clientHeight}px)`;
 
     modalResizer($header.value, $modal.value);
   })
@@ -99,7 +104,7 @@ onUnmounted((): void => {
 
   .modal-header-wrapper {
     background: #f3f4f6;
-    padding: .7rem;
+    padding: .5rem .7rem;
     .modal-header {
       display: flex;
       justify-content: space-between;
@@ -110,16 +115,20 @@ onUnmounted((): void => {
         button {
           background: transparent;
           border: none;
+          padding: 0;
         }
       }
     }
   }
 
   .modal-body {
-    padding: 1rem;
-    height: 100%;
+    padding: .7rem;
     width: 100%;
     box-sizing: border-box;
+    .modal-body__content {
+      height: 100%;
+      overflow: hidden;
+    }
   }
 }
 </style>
