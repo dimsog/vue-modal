@@ -1,7 +1,7 @@
 {
   "name": "vue-modal",
   "version": "0.0.1",
-  "description": "",
+  "description": "Vue 3 modal",
   "type": "module",
   "main": "dist/modal.js",
   "scripts": {
