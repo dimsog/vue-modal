@@ -33,7 +33,7 @@ export default ($header: HTMLElement, $modal: HTMLElement) => {
 
         $modal.style.userSelect = 'none';
 
-        document.addEventListener('mousemove', (e) => {
+        document.addEventListener('mousemove', (e: MouseEvent) => {
             if (resizeType === null) {
                 return;
             }
@@ -89,7 +89,7 @@ export default ($header: HTMLElement, $modal: HTMLElement) => {
         let y = e.clientY - $modal.getBoundingClientRect().top;
         isMoving = true;
 
-        const move = function (e) {
+        const move = function (e: MouseEvent) {
             $modal.style.top = (e.pageY - y) + 'px';
             $modal.style.left = (e.pageX - x) + 'px';
         }
