@@ -1,6 +1,6 @@
-import modalCursor from "./modal-cursor";
-import modalResizeType from "./modal-resize-type";
-import {ModalPosition} from "../Types/ModalPosition";
+import modalCursor from "../utils/modal-cursor";
+import modalResizeType from "../utils/modal-resize-type";
+import { ModalPosition } from "../Types/ModalPosition";
 
 export default ($header: HTMLElement, $modal: HTMLElement, callback: (modalPosition: ModalPosition) => {}) => {
     let isMoving = false;

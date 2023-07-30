@@ -1,36 +1,8 @@
-<template>
-  <div>
-    <div ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened}">
-      <div ref="$headerWrapper" class="modal-header-wrapper">
-        <div ref="$header" class="modal-header">
-          <div class="modal-header__title">
-            {{ title }}
-          </div>
-          <div class="modal-header__buttons">
-            <button type="button" @click.prevent="close">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M18 6l-12 12"></path>
-                <path d="M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div ref="$modalBody" class="modal-body">
-        <div class="modal-body__content">
-          <slot></slot>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, nextTick } from "vue";
 import { addModal, deleteModal } from "../utils/ModalStorage.js";
-import modalResizer from "../utils/modal-resizer";
-import initModalSizeAndPos from "../utils/initModalSizeAndPos";
+import resizeModal from "../events/resizeModal";
+import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
 import { ModalPosition } from "../Types/ModalPosition";
 
 const modalIsOpened = ref(false);
@@ -58,24 +30,20 @@ const $modal = ref<HTMLElement | null>(null);
 const $headerWrapper = ref<HTMLElement | null>(null);
 const $header = ref<HTMLElement | null>(null);
 const $modalBody = ref<HTMLElement | null>(null);
-
-let modalPosition: ModalPosition = {
-  x: null,
-  y: null,
-  width: Number(props.width.replace('px', '')),
-  height: Number(props.height.replace('px', ''))
-}
+let modalPosition: ModalPosition | null = null;
 
 const open = (): void => {
+  modalPosition = modalPosition || {
+    x: document.documentElement.clientWidth / 2 - Number(props.width.replace('px', '')) / 2,
+    y: document.documentElement.clientHeight / 2 - Number(props.height.replace('px', '')) / 2,
+    width: Number(props.width.replace('px', '')),
+    height: Number(props.height.replace('px', ''))
+  };
   modalIsOpened.value = true;
 
   nextTick(async (): void => {
-    if ($modal.value === null || $header.value == null) {
-      return;
-    }
-
-    initModalSizeAndPos($modal.value, modalPosition);
-    modalResizer($header.value, $modal.value, (position: ModalPosition) => {
+    updateModalSizeAndPosition($modal.value, modalPosition);
+    resizeModal($header.value, $modal.value, (position: ModalPosition) => {
       modalPosition = position;
     });
     $modalBody.value.style.height = `calc(100% - ${$headerWrapper.value.clientHeight}px)`;
@@ -97,6 +65,34 @@ onUnmounted((): void => {
   deleteModal(props.name);
 });
 </script>
+
+<template>
+  <div>
+    <div ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened}">
+      <div ref="$headerWrapper" class="modal-header-wrapper">
+        <div ref="$header" class="modal-header">
+          <div class="modal-header__title">
+            {{ title }}
+          </div>
+          <div class="modal-header__buttons">
+            <button type="button" @click.prevent="close">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M18 6l-12 12"></path>
+                <path d="M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div ref="$modalBody" class="modal-body">
+        <div class="modal-body__content">
+          <slot></slot>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .modal--hidden {
