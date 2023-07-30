@@ -15,18 +15,23 @@ export default ($header: HTMLElement, $modal: HTMLElement) => {
         if (isMoving) {
             return;
         }
-        e.preventDefault();
-        e.stopPropagation();
         const x = e.clientX;
         const y = e.clientY;
         const originalRect = $modal.getBoundingClientRect();
+        let resizeType = modalResizeType(x, y, originalRect);
+
+        if (resizeType === null) {
+            return;
+        }
+
         const originalWidth = $modal.clientWidth;
         const originalHeight = $modal.clientHeight;
-        let resizeType = modalResizeType(e.clientX, e.clientY, originalRect);
         let width = originalWidth;
         let height = originalHeight;
         let top = originalRect.top;
         let left = originalRect.left;
+
+        $modal.style.userSelect = 'none';
 
         document.addEventListener('mousemove', (e) => {
             if (resizeType === null) {
@@ -75,6 +80,7 @@ export default ($header: HTMLElement, $modal: HTMLElement) => {
 
         $modal.addEventListener('mouseup', () => {
             resizeType = null;
+            $modal.style.userSelect = '';
         })
     });
 
