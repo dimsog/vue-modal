@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import ModalBackdrop from "./ModalBackdrop.vue";
+
 import { onMounted, onUnmounted, ref, nextTick } from "vue";
 import { addModal, deleteModal } from "../utils/ModalStorage.js";
 import resizeModal from "../events/resizeModal";
@@ -23,6 +25,10 @@ const props = defineProps({
   height: {
     type: String,
     default: '400px'
+  },
+  backdrop: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -91,6 +97,8 @@ onUnmounted((): void => {
         </div>
       </div>
     </div>
+
+    <modal-backdrop v-if="props.backdrop && modalIsOpened" @close="close"></modal-backdrop>
   </div>
 </template>
 
