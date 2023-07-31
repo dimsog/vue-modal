@@ -41,7 +41,7 @@ let modalPosition: ModalPosition | null = null;
 const open = (): void => {
   modalPosition = modalPosition || {
     x: document.documentElement.clientWidth / 2 - Number(props.width.replace('px', '')) / 2,
-    y: document.documentElement.clientHeight / 2 - Number(props.height.replace('px', '')) / 2,
+    y: window.innerHeight / 2 - Number(props.height.replace('px', '')) / 2,
     width: Number(props.width.replace('px', '')),
     height: Number(props.height.replace('px', ''))
   };
