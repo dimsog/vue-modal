@@ -47,7 +47,7 @@ const open = (): void => {
   };
   modalIsOpened.value = true;
 
-  nextTick(async (): void => {
+  nextTick(async () => {
     updateModalSizeAndPosition($modal.value, modalPosition);
     resizeModal($header.value, $modal.value, (position: ModalPosition) => {
       modalPosition = position;

@@ -90,7 +90,7 @@ const k = (e, t) => {
   });
 }, j = (e, t) => {
   e.style.width = t.width + "px", e.style.height = t.height + "px", e.style.top = t.y !== null ? t.y + "px" : document.documentElement.clientHeight / 2 - e.clientHeight / 2 + "px", e.style.left = t.x !== null ? t.x + "px" : document.documentElement.clientWidth / 2 - e.clientWidth / 2 + "px";
-}, A = (e) => (I("data-v-52557c2e"), e = e(), N(), e), D = { class: "modal-header__title" }, U = { class: "modal-header__buttons" }, F = ["onClick"], G = /* @__PURE__ */ A(() => /* @__PURE__ */ p("svg", {
+}, A = (e) => (I("data-v-78d372ce"), e = e(), N(), e), D = { class: "modal-header__title" }, U = { class: "modal-header__buttons" }, F = ["onClick"], G = /* @__PURE__ */ A(() => /* @__PURE__ */ p("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   class: "icon icon-tabler icon-tabler-x",
   width: "24",
@@ -202,7 +202,7 @@ const k = (e, t) => {
     ]));
   }
 });
-const P = /* @__PURE__ */ k(Q, [["__scopeId", "data-v-52557c2e"]]), $ = (e) => {
+const P = /* @__PURE__ */ k(Q, [["__scopeId", "data-v-78d372ce"]]), $ = (e) => {
   var t;
   (t = B(e)) == null || t.open();
 }, tt = (e) => {
