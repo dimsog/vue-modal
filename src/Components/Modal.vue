@@ -122,7 +122,7 @@ onUnmounted((): void => {
 }
 .modal {
   font-family: sans-serif;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   background: #fff;
   border-radius: 8px;

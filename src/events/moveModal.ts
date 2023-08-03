@@ -7,8 +7,8 @@ export default ($modal: HTMLElement, callback: (position: ModalPosition) => void
         let y = e.clientY - $modal.getBoundingClientRect().top;
 
         const move = function (e: MouseEvent) {
-            $modal.style.top = (e.pageY - y) + 'px';
-            $modal.style.left = (e.pageX - x) + 'px';
+            $modal.style.top = (e.clientY - y) + 'px';
+            $modal.style.left = (e.clientX - x) + 'px';
 
             callback({
                 x: $modal.getBoundingClientRect().x,
