@@ -4,6 +4,7 @@ import ModalBackdrop from "./ModalBackdrop.vue";
 import { onMounted, onUnmounted, ref, nextTick } from "vue";
 import { addModal, deleteModal } from "../utils/ModalStorage.js";
 import resizeModal from "../events/resizeModal";
+import moveModal from "../events/moveModal";
 import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
 import { ModalPosition } from "../Types/ModalPosition";
 
@@ -48,10 +49,17 @@ const open = (): void => {
   modalIsOpened.value = true;
 
   nextTick(async () => {
+    if ($modal.value === null || $modalBody.value == null || $headerWrapper.value === null) {
+      return;
+    }
+
     updateModalSizeAndPosition($modal.value, modalPosition);
-    resizeModal($header.value, $modal.value, (position: ModalPosition) => {
+    resizeModal($modal.value, (position: ModalPosition) => {
       modalPosition = position;
     });
+    moveModal($modal.value, (position: ModalPosition) => {
+      modalPosition = position;
+    })
     $modalBody.value.style.height = `calc(100% - ${$headerWrapper.value.clientHeight}px)`;
   })
 };

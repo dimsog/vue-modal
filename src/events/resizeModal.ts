@@ -2,20 +2,13 @@ import modalCursor from "../utils/modal-cursor";
 import modalResizeType from "../utils/modal-resize-type";
 import { ModalPosition } from "../Types/ModalPosition";
 
-export default ($header: HTMLElement, $modal: HTMLElement, callback: (modalPosition: ModalPosition) => {}) => {
-    let isMoving = false;
+export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) => {}) => {
     $modal.addEventListener('mousemove', (e) => {
-        if (isMoving) {
-            return;
-        }
         const rect = $modal.getBoundingClientRect();
         $modal.style.cursor = modalCursor(e.clientX, e.clientY, rect);
     });
 
     $modal.addEventListener('mousedown', (e) => {
-        if (isMoving) {
-            return;
-        }
         const x = e.clientX;
         const y = e.clientY;
         const originalRect = $modal.getBoundingClientRect();
@@ -89,31 +82,6 @@ export default ($header: HTMLElement, $modal: HTMLElement, callback: (modalPosit
         $modal.addEventListener('mouseup', () => {
             resizeType = null;
             $modal.style.userSelect = '';
-        })
-    });
-
-    $header.addEventListener('mousedown', (e) => {
-        let x = e.clientX - $modal.getBoundingClientRect().left;
-        let y = e.clientY - $modal.getBoundingClientRect().top;
-        isMoving = true;
-
-        const move = function (e: MouseEvent) {
-            $modal.style.top = (e.pageY - y) + 'px';
-            $modal.style.left = (e.pageX - x) + 'px';
-
-            callback({
-                x: $modal.getBoundingClientRect().x,
-                y: $modal.getBoundingClientRect().y,
-                width: $modal.clientWidth,
-                height: $modal.clientHeight
-            })
-        }
-
-        document.addEventListener('mousemove', move);
-
-        $header.addEventListener('mouseup', () => {
-            document.removeEventListener('mousemove', move);
-            isMoving = false;
         })
     });
 }
