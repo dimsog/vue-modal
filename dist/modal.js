@@ -1,4 +1,4 @@
-import { defineComponent as y, ref as h, onMounted as x, openBlock as _, createElementBlock as b, onUnmounted as B, createElementVNode as a, normalizeClass as C, toDisplayString as M, withModifiers as E, renderSlot as S, createBlock as z, createCommentVNode as H, nextTick as R, pushScopeId as W, popScopeId as L } from "vue";
+import { defineComponent as y, ref as h, onMounted as x, openBlock as _, createElementBlock as b, onUnmounted as B, createElementVNode as a, normalizeClass as C, toDisplayString as M, withModifiers as E, renderSlot as z, createBlock as S, createCommentVNode as H, nextTick as R, pushScopeId as W, popScopeId as L } from "vue";
 const I = /* @__PURE__ */ y({
   __name: "ModalBackdrop",
   emits: ["close"],
@@ -88,7 +88,7 @@ const m = (e, t) => {
   });
 }, Y = (e, t) => {
   e.style.width = t.width + "px", e.style.height = t.height + "px", e.style.top = t.y !== null ? t.y + "px" : document.documentElement.clientHeight / 2 - e.clientHeight / 2 + "px", e.style.left = t.x !== null ? t.x + "px" : document.documentElement.clientWidth / 2 - e.clientWidth / 2 + "px";
-}, j = (e) => (W("data-v-0daad9dd"), e = e(), L(), e), A = { class: "modal-header__title" }, D = { class: "modal-header__buttons" }, U = ["onClick"], F = /* @__PURE__ */ j(() => /* @__PURE__ */ a("svg", {
+}, j = (e) => (W("data-v-0d57dedd"), e = e(), L(), e), A = { class: "modal-header__title" }, D = { class: "modal-header__buttons" }, U = ["onClick"], F = /* @__PURE__ */ j(() => /* @__PURE__ */ a("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   class: "icon icon-tabler icon-tabler-x",
   width: "24",
@@ -132,6 +132,10 @@ const m = (e, t) => {
     backdrop: {
       type: Boolean,
       default: !1
+    },
+    resize: {
+      type: Boolean,
+      default: !0
     }
   },
   setup(e) {
@@ -144,7 +148,7 @@ const m = (e, t) => {
         width: Number(t.width.replace("px", "")),
         height: Number(t.height.replace("px", ""))
       }, n.value = !0, R(async () => {
-        o.value === null || i.value == null || l.value === null || (Y(o.value, r), V(o.value, (s) => {
+        o.value === null || i.value == null || l.value === null || (Y(o.value, r), t.resize && V(o.value, (s) => {
           r = s;
         }), X(o.value, (s) => {
           r = s;
@@ -191,18 +195,18 @@ const m = (e, t) => {
           class: "modal-body"
         }, [
           a("div", J, [
-            S(s.$slots, "default", {}, void 0, !0)
+            z(s.$slots, "default", {}, void 0, !0)
           ])
         ], 512)
       ], 2),
-      t.backdrop && n.value ? (_(), z(N, {
+      t.backdrop && n.value ? (_(), S(N, {
         key: 0,
         onClose: p
       })) : H("", !0)
     ]));
   }
 });
-const Z = /* @__PURE__ */ m(K, [["__scopeId", "data-v-0daad9dd"]]), P = (e) => {
+const Z = /* @__PURE__ */ m(K, [["__scopeId", "data-v-0d57dedd"]]), P = (e) => {
   var t;
   (t = w(e)) == null || t.open();
 }, $ = (e) => {

@@ -30,6 +30,10 @@ const props = defineProps({
   backdrop: {
     type: Boolean,
     default: false
+  },
+  resize: {
+    type: Boolean,
+    default: true
   }
 });
 
@@ -54,9 +58,11 @@ const open = (): void => {
     }
 
     updateModalSizeAndPosition($modal.value, modalPosition);
-    resizeModal($modal.value, (position: ModalPosition) => {
-      modalPosition = position;
-    });
+    if (props.resize) {
+      resizeModal($modal.value, (position: ModalPosition) => {
+        modalPosition = position;
+      });
+    }
     moveModal($modal.value, (position: ModalPosition) => {
       modalPosition = position;
     })
