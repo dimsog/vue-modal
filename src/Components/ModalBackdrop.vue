@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 const $backdrop = ref(null);
 const emit = defineEmits(['close']);
 
 const updateBackdropSize = (): void => {
   $backdrop.value.style.width = document.documentElement.clientWidth + 'px';
-  $backdrop.value.style.height = document.documentElement.clientHeight + 'px';
+  $backdrop.value.style.height = document.body.getBoundingClientRect().height + 'px';
 }
 
 const onCloseBackdrop = (): void => {
@@ -20,6 +20,10 @@ onMounted((): void => {
   window.addEventListener('resize', updateBackdropSize);
   document.body.style.overflow = 'hidden';
 });
+
+onUnmounted((): void => {
+  document.body.style.overflow = '';
+})
 </script>
 
 <template>

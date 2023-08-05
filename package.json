@@ -1,6 +1,6 @@
 {
   "name": "@dimsog/vue-modal",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Vue 3 modal",
   "type": "module",
   "main": "dist/modal.js",
