@@ -4,3 +4,6 @@
 ```bash
 npm i @dimsog/vue-modal
 ```
+
+### Demo
+https://vuemodal.com
