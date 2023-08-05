@@ -5,7 +5,7 @@ const open = (modalName: string): void => {
     getModal(modalName)?.open();
 }
 
-const close = (modalName: string) => {
+const close = (modalName: string): void => {
     getModal(modalName)?.close();
 }
 

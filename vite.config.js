@@ -6,6 +6,7 @@ import dts from 'vite-plugin-dts'
 export default defineConfig({
     plugins: [vue(), dts()],
     build: {
+        sourcemap: true,
         cssCodeSplit: false,
         lib: {
             entry: resolve(__dirname, "src/modal.ts"),

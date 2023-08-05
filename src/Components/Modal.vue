@@ -1,7 +1,10 @@
 <script lang="ts" setup>
+import ModalBackdrop from "./ModalBackdrop.vue";
+
 import { onMounted, onUnmounted, ref, nextTick } from "vue";
 import { addModal, deleteModal } from "../utils/ModalStorage.js";
 import resizeModal from "../events/resizeModal";
+import moveModal from "../events/moveModal";
 import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
 import { ModalPosition } from "../Types/ModalPosition";
 
@@ -23,6 +26,14 @@ const props = defineProps({
   height: {
     type: String,
     default: '400px'
+  },
+  backdrop: {
+    type: Boolean,
+    default: false
+  },
+  resize: {
+    type: Boolean,
+    default: true
   }
 });
 
@@ -35,17 +46,26 @@ let modalPosition: ModalPosition | null = null;
 const open = (): void => {
   modalPosition = modalPosition || {
     x: document.documentElement.clientWidth / 2 - Number(props.width.replace('px', '')) / 2,
-    y: document.documentElement.clientHeight / 2 - Number(props.height.replace('px', '')) / 2,
+    y: window.innerHeight / 2 - Number(props.height.replace('px', '')) / 2,
     width: Number(props.width.replace('px', '')),
     height: Number(props.height.replace('px', ''))
   };
   modalIsOpened.value = true;
 
-  nextTick(async (): void => {
+  nextTick(async () => {
+    if ($modal.value === null || $modalBody.value == null || $headerWrapper.value === null) {
+      return;
+    }
+
     updateModalSizeAndPosition($modal.value, modalPosition);
-    resizeModal($header.value, $modal.value, (position: ModalPosition) => {
+    if (props.resize) {
+      resizeModal($modal.value, (position: ModalPosition) => {
+        modalPosition = position;
+      });
+    }
+    moveModal($modal.value, (position: ModalPosition) => {
       modalPosition = position;
-    });
+    })
     $modalBody.value.style.height = `calc(100% - ${$headerWrapper.value.clientHeight}px)`;
   })
 };
@@ -91,6 +111,8 @@ onUnmounted((): void => {
         </div>
       </div>
     </div>
+
+    <modal-backdrop v-if="props.backdrop && modalIsOpened" @close="close"></modal-backdrop>
   </div>
 </template>
 
@@ -100,7 +122,7 @@ onUnmounted((): void => {
 }
 .modal {
   font-family: sans-serif;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   background: #fff;
   border-radius: 8px;
