@@ -34,6 +34,10 @@ const props = defineProps({
   resize: {
     type: Boolean,
     default: true
+  },
+  scroll: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -106,7 +110,7 @@ onUnmounted((): void => {
         </div>
       </div>
       <div ref="$modalBody" class="modal-body">
-        <div class="modal-body__content">
+        <div class="modal-body__content" :class="{'modal-body__content--scroll': props.scroll}">
           <slot></slot>
         </div>
       </div>
@@ -156,6 +160,9 @@ onUnmounted((): void => {
     .modal-body__content {
       height: 100%;
       overflow: hidden;
+      &.modal-body__content--scroll {
+        overflow-y: auto;
+      }
     }
   }
 }
