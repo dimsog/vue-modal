@@ -1,9 +1,3 @@
-<template>
-  <div ref="$footerNode" v-if="showFooter">
-    <slot></slot>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 
@@ -14,3 +8,17 @@ onMounted((): void => {
     showFooter = $footerNode.value !== null && $footerNode.value.querySelectorAll('button').length > 0;
 });
 </script>
+
+<template>
+  <div ref="$footerNode" class="modal-footer" v-if="showFooter">
+    <slot></slot>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.modal-footer {
+  text-align: right;
+  padding: .7rem;
+  background: #f4f5f6;
+}
+</style>
