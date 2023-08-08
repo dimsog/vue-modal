@@ -24,10 +24,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
-    scroll: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
 }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     name: {
         type: StringConstructor;
@@ -54,15 +50,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
-    scroll: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
 }>>, {
     backdrop: boolean;
     title: string;
     resize: boolean;
-    scroll: boolean;
     width: string;
     height: string;
 }, {}>, {
