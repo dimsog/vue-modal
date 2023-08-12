@@ -90,7 +90,7 @@ const g = (e, t) => {
   });
 }, X = (e, t) => {
   e.style.width = t.width + "px", e.style.height = t.height + "px", e.style.top = t.y !== null ? t.y + "px" : document.documentElement.clientHeight / 2 - e.clientHeight / 2 + "px", e.style.left = t.x !== null ? t.x + "px" : document.documentElement.clientWidth / 2 - e.clientWidth / 2 + "px";
-}, Y = (e) => (W("data-v-82cdca4a"), e = e(), H(), e), j = { class: "modal-header__title" }, D = { class: "modal-header__buttons" }, U = ["onClick"], G = /* @__PURE__ */ Y(() => /* @__PURE__ */ u("svg", {
+}, Y = (e) => (W("data-v-eb6adce0"), e = e(), H(), e), j = { class: "modal-header__title" }, D = { class: "modal-header__buttons" }, U = ["onClick"], G = /* @__PURE__ */ Y(() => /* @__PURE__ */ u("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   class: "icon icon-tabler icon-tabler-x",
   width: "24",
@@ -200,7 +200,7 @@ const g = (e, t) => {
     ]));
   }
 });
-const ie = /* @__PURE__ */ g(K, [["__scopeId", "data-v-82cdca4a"]]), Q = /* @__PURE__ */ x({
+const ie = /* @__PURE__ */ g(K, [["__scopeId", "data-v-eb6adce0"]]), Q = /* @__PURE__ */ x({
   __name: "ModalFooter",
   setup(e) {
     const t = _(null);
