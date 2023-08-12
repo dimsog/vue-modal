@@ -18,8 +18,8 @@ button {
   user-select: none;
   margin-left: .5rem;
   &:hover {
-    background: #f3f3f6;
-    border: 1px solid #cbd1d9;
+    background: #f6f6f8;
+    border: 1px solid #e2e6ea;
   }
   &:active {
     background: #e8eaec;

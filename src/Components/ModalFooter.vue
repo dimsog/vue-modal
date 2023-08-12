@@ -19,6 +19,6 @@ onMounted((): void => {
 .modal-footer {
   text-align: right;
   padding: .7rem;
-  background: #f4f5f6;
+  background: #f3f4f6;
 }
 </style>
