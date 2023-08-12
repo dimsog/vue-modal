@@ -23,6 +23,7 @@ onMounted((): void => {
 
 onUnmounted((): void => {
   document.body.style.overflow = '';
+  window.removeEventListener('resize', updateBackdropSize);
 })
 </script>
 
