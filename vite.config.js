@@ -10,7 +10,7 @@ export default defineConfig({
         cssCodeSplit: false,
         lib: {
             entry: resolve(__dirname, "src/modal.ts"),
-            name: 'Modal',
+            name: 'modal',
             fileName: 'modal'
         },
         rollupOptions: {
