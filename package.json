@@ -1,6 +1,6 @@
 {
   "name": "@dimsog/vue-modal",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Vue 3 modal",
   "type": "module",
   "main": "dist/modal.js",
@@ -12,7 +12,7 @@
     "build": "vite build",
     "lint": "eslint"
   },
-  "keywords": [],
+  "keywords": ["vue 3 modal", "vue modal", "modal", "dialog", "vue dialog", "vue 3 dialog"],
   "author": {
     "name": "Dmitry R",
     "email": "dimsog@gmail.com"

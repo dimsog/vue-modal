@@ -7,6 +7,7 @@ import resizeModal from "../events/resizeModal";
 import moveModal from "../events/moveModal";
 import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
 import { ModalPosition } from "../Types/ModalPosition";
+import ModalFooter from "./ModalFooter.vue";
 
 const modalIsOpened = ref(false);
 const props = defineProps({
@@ -40,7 +41,6 @@ const props = defineProps({
 const $modal = ref<HTMLElement | null>(null);
 const $headerWrapper = ref<HTMLElement | null>(null);
 const $header = ref<HTMLElement | null>(null);
-const $modalBody = ref<HTMLElement | null>(null);
 let modalPosition: ModalPosition | null = null;
 
 const open = (): void => {
@@ -53,7 +53,7 @@ const open = (): void => {
   modalIsOpened.value = true;
 
   nextTick(async () => {
-    if ($modal.value === null || $modalBody.value == null || $headerWrapper.value === null) {
+    if ($modal.value === null || $headerWrapper.value === null) {
       return;
     }
 
@@ -66,7 +66,6 @@ const open = (): void => {
     moveModal($modal.value, (position: ModalPosition) => {
       modalPosition = position;
     })
-    $modalBody.value.style.height = `calc(100% - ${$headerWrapper.value.clientHeight}px)`;
   })
 };
 
@@ -105,11 +104,7 @@ onUnmounted((): void => {
           </div>
         </div>
       </div>
-      <div ref="$modalBody" class="modal-body">
-        <div class="modal-body__content">
-          <slot></slot>
-        </div>
-      </div>
+      <slot></slot>
     </div>
 
     <modal-backdrop v-if="props.backdrop && modalIsOpened" @close="close"></modal-backdrop>
@@ -118,16 +113,18 @@ onUnmounted((): void => {
 
 <style lang="scss" scoped>
 .modal--hidden {
-  display: none;
+  display: none !important;
 }
 .modal {
+  display: flex;
+  flex-direction: column;
   font-family: sans-serif;
   position: fixed;
   z-index: 1000;
   background: #fff;
   border-radius: 8px;
   border: 1px solid rgba(30, 29, 29, 0.16);
-  box-shadow: 0 0 10px 0 rgba(0,0,0,0.10);
+  box-shadow: 0 0 15px 0 rgba(0,0,0,0.12);
   overflow: hidden;
 
   .modal-header-wrapper {
@@ -146,16 +143,6 @@ onUnmounted((): void => {
           padding: 0;
         }
       }
-    }
-  }
-
-  .modal-body {
-    padding: .7rem;
-    width: 100%;
-    box-sizing: border-box;
-    .modal-body__content {
-      height: 100%;
-      overflow: hidden;
     }
   }
 }

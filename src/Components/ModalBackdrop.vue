@@ -6,7 +6,7 @@ const emit = defineEmits(['close']);
 
 const updateBackdropSize = (): void => {
   $backdrop.value.style.width = document.documentElement.clientWidth + 'px';
-  $backdrop.value.style.height = document.body.getBoundingClientRect().height + 'px';
+  $backdrop.value.style.height = document.documentElement.clientHeight + 'px';
 }
 
 const onCloseBackdrop = (): void => {
@@ -23,6 +23,7 @@ onMounted((): void => {
 
 onUnmounted((): void => {
   document.body.style.overflow = '';
+  window.removeEventListener('resize', updateBackdropSize);
 })
 </script>
 
@@ -32,7 +33,7 @@ onUnmounted((): void => {
 
 <style lang="scss" scoped>
 .backdrop {
-  position: absolute;
+  position: fixed;
   z-index: 900;
   top: 0;
   left: 0;

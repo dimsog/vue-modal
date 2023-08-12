@@ -1,39 +1,39 @@
-import { defineComponent as v, ref as h, onMounted as x, onUnmounted as b, openBlock as _, createElementBlock as w, createElementVNode as a, normalizeClass as C, toDisplayString as M, withModifiers as E, renderSlot as z, createBlock as S, createCommentVNode as R, nextTick as W, pushScopeId as H, popScopeId as L } from "vue";
-const I = /* @__PURE__ */ v({
+import { defineComponent as x, ref as _, onMounted as m, onUnmounted as k, openBlock as h, createElementBlock as f, createElementVNode as u, normalizeClass as E, toDisplayString as z, withModifiers as S, renderSlot as b, createBlock as L, createCommentVNode as M, nextTick as R, pushScopeId as W, popScopeId as H, unref as I } from "vue";
+const N = /* @__PURE__ */ x({
   __name: "ModalBackdrop",
   emits: ["close"],
   setup(e, { emit: t }) {
-    const n = h(null), o = () => {
-      n.value.style.width = document.documentElement.clientWidth + "px", n.value.style.height = document.body.getBoundingClientRect().height + "px";
-    }, l = () => {
+    const n = _(null), o = () => {
+      n.value.style.width = document.documentElement.clientWidth + "px", n.value.style.height = document.documentElement.clientHeight + "px";
+    }, i = () => {
       t("close"), document.body.style.overflow = "";
     };
-    return x(() => {
+    return m(() => {
       o(), window.addEventListener("resize", o), document.body.style.overflow = "hidden";
-    }), b(() => {
-      document.body.style.overflow = "";
-    }), (d, i) => (_(), w("div", {
+    }), k(() => {
+      document.body.style.overflow = "", window.removeEventListener("resize", o);
+    }), (r, l) => (h(), f("div", {
       ref_key: "$backdrop",
       ref: n,
-      onClick: l,
+      onClick: i,
       class: "backdrop"
     }, null, 512));
   }
 });
-const m = (e, t) => {
+const g = (e, t) => {
   const n = e.__vccOpts || e;
-  for (const [o, l] of t)
-    n[o] = l;
+  for (const [o, i] of t)
+    n[o] = i;
   return n;
-}, N = /* @__PURE__ */ m(I, [["__scopeId", "data-v-ffcf226b"]]), y = /* @__PURE__ */ new Map(), q = (e, t) => {
-  y.set(e, t);
-}, k = (e) => {
-  const t = y.get(e);
+}, q = /* @__PURE__ */ g(N, [["__scopeId", "data-v-a9a01d98"]]), w = /* @__PURE__ */ new Map(), F = (e, t) => {
+  w.set(e, t);
+}, B = (e) => {
+  const t = w.get(e);
   return t === void 0 ? null : t;
 }, T = (e) => {
-  y.delete(e);
-}, B = (e, t, n) => e - n.left > -10 && e - n.left < 10 && t - n.top > -10 && t - n.top < 10 ? "top-left" : n.right - e > -10 && n.right - e < 10 && t - n.top > -10 && t - n.top < 10 ? "top-right" : n.bottom - t > -10 && n.bottom - t < 10 && e - n.left > -10 && e - n.left < 10 ? "bottom-left" : n.bottom - t > -10 && n.bottom - t < 10 && n.right - e > -10 && n.right - e < 10 ? "bottom-right" : e - n.left > -5 && e - n.left < 5 ? "left" : n.right - e > -5 && n.right - e < 5 ? "right" : t - n.top > -5 && t - n.top < 5 ? "top" : n.bottom - t > -5 && n.bottom - t < 5 ? "bottom" : null, O = (e, t, n) => {
-  switch (B(e, t, n)) {
+  w.delete(e);
+}, C = (e, t, n) => e - n.left > -10 && e - n.left < 10 && t - n.top > -10 && t - n.top < 10 ? "top-left" : n.right - e > -10 && n.right - e < 10 && t - n.top > -10 && t - n.top < 10 ? "top-right" : n.bottom - t > -10 && n.bottom - t < 10 && e - n.left > -10 && e - n.left < 10 ? "bottom-left" : n.bottom - t > -10 && n.bottom - t < 10 && n.right - e > -10 && n.right - e < 10 ? "bottom-right" : e - n.left > -5 && e - n.left < 5 ? "left" : n.right - e > -5 && n.right - e < 5 ? "right" : t - n.top > -5 && t - n.top < 5 ? "top" : n.bottom - t > -5 && n.bottom - t < 5 ? "bottom" : null, A = (e, t, n) => {
+  switch (C(e, t, n)) {
     case "left":
     case "right":
       return "col-resize";
@@ -49,48 +49,48 @@ const m = (e, t) => {
     default:
       return "";
   }
-}, V = (e, t) => {
+}, O = (e, t) => {
   e.addEventListener("mousemove", (n) => {
     const o = e.getBoundingClientRect();
-    e.style.cursor = O(n.clientX, n.clientY, o);
+    e.style.cursor = A(n.clientX, n.clientY, o);
   }), e.addEventListener("mousedown", (n) => {
-    const o = n.clientX, l = n.clientY, d = e.getBoundingClientRect();
-    let i = B(o, l, d);
-    if (i === null)
+    const o = n.clientX, i = n.clientY, r = e.getBoundingClientRect();
+    let l = C(o, i, r);
+    if (l === null)
       return;
-    const r = e.clientWidth, u = e.clientHeight;
-    let p = r, s = u, f = d.top, g = d.left;
+    const s = e.clientWidth, a = e.clientHeight;
+    let d = s, p = a, v = r.top, y = r.left;
     e.style.userSelect = "none", document.addEventListener("mousemove", (c) => {
-      i !== null && (i === "left" && (g = d.left + (c.clientX - o), p = r - (c.clientX - o)), i === "right" && (p = r + (c.clientX - o)), i === "top" && (f = d.top + (c.clientY - l), s = u - (c.clientY - l)), i === "bottom" && (s = u + (c.clientY - l)), i == "top-left" && (g = d.left + (c.clientX - o), p = r - (c.clientX - o), f = d.top + (c.clientY - l), s = u - (c.clientY - l)), i == "top-right" && (p = r + (c.clientX - o), f = d.top + (c.clientY - l), s = u - (c.clientY - l)), i == "bottom-left" && (g = d.left + (c.clientX - o), p = r - (c.clientX - o), s = u + (c.clientY - l)), i == "bottom-right" && (p = r + (c.clientX - o), s = u + (c.clientY - l)), e.style.width = p + "px", e.style.height = s + "px", e.style.left = g + "px", e.style.top = f + "px", t({
+      l !== null && (l === "left" && (y = r.left + (c.clientX - o), d = s - (c.clientX - o)), l === "right" && (d = s + (c.clientX - o)), l === "top" && (v = r.top + (c.clientY - i), p = a - (c.clientY - i)), l === "bottom" && (p = a + (c.clientY - i)), l == "top-left" && (y = r.left + (c.clientX - o), d = s - (c.clientX - o), v = r.top + (c.clientY - i), p = a - (c.clientY - i)), l == "top-right" && (d = s + (c.clientX - o), v = r.top + (c.clientY - i), p = a - (c.clientY - i)), l == "bottom-left" && (y = r.left + (c.clientX - o), d = s - (c.clientX - o), p = a + (c.clientY - i)), l == "bottom-right" && (d = s + (c.clientX - o), p = a + (c.clientY - i)), e.style.width = d + "px", e.style.height = p + "px", e.style.left = y + "px", e.style.top = v + "px", t({
         x: e.getBoundingClientRect().x,
         y: e.getBoundingClientRect().y,
         width: e.clientWidth,
         height: e.clientHeight
       }));
     }), e.addEventListener("mouseup", () => {
-      i = null, e.style.userSelect = "";
+      l = null, e.style.userSelect = "";
     });
   });
-}, X = (e, t) => {
+}, V = (e, t) => {
   e.querySelector(".modal-header").addEventListener("mousedown", (o) => {
-    let l = o.clientX - e.getBoundingClientRect().left, d = o.clientY - e.getBoundingClientRect().top;
-    const i = function(r) {
-      e.style.top = r.clientY - d + "px", e.style.left = r.clientX - l + "px", t({
+    let i = o.clientX - e.getBoundingClientRect().left, r = o.clientY - e.getBoundingClientRect().top;
+    const l = function(s) {
+      e.style.top = s.clientY - r + "px", e.style.left = s.clientX - i + "px", t({
         x: e.getBoundingClientRect().x,
         y: e.getBoundingClientRect().y,
         width: e.clientWidth,
         height: e.clientHeight
       });
     };
-    document.addEventListener("mousemove", i), document.addEventListener("mouseup", () => {
-      document.removeEventListener("mousemove", i);
+    document.addEventListener("mousemove", l), document.addEventListener("mouseup", () => {
+      document.removeEventListener("mousemove", l);
     }, {
       once: !0
     });
   });
-}, Y = (e, t) => {
+}, X = (e, t) => {
   e.style.width = t.width + "px", e.style.height = t.height + "px", e.style.top = t.y !== null ? t.y + "px" : document.documentElement.clientHeight / 2 - e.clientHeight / 2 + "px", e.style.left = t.x !== null ? t.x + "px" : document.documentElement.clientWidth / 2 - e.clientWidth / 2 + "px";
-}, j = (e) => (H("data-v-415dd5d4"), e = e(), L(), e), A = { class: "modal-header__title" }, D = { class: "modal-header__buttons" }, U = ["onClick"], F = /* @__PURE__ */ j(() => /* @__PURE__ */ a("svg", {
+}, Y = (e) => (W("data-v-eb6adce0"), e = e(), H(), e), j = { class: "modal-header__title" }, D = { class: "modal-header__buttons" }, U = ["onClick"], G = /* @__PURE__ */ Y(() => /* @__PURE__ */ u("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   class: "icon icon-tabler icon-tabler-x",
   width: "24",
@@ -102,16 +102,16 @@ const m = (e, t) => {
   "stroke-linecap": "round",
   "stroke-linejoin": "round"
 }, [
-  /* @__PURE__ */ a("path", {
+  /* @__PURE__ */ u("path", {
     stroke: "none",
     d: "M0 0h24v24H0z",
     fill: "none"
   }),
-  /* @__PURE__ */ a("path", { d: "M18 6l-12 12" }),
-  /* @__PURE__ */ a("path", { d: "M6 6l12 12" })
-], -1)), G = [
-  F
-], J = { class: "modal-body__content" }, K = /* @__PURE__ */ v({
+  /* @__PURE__ */ u("path", { d: "M18 6l-12 12" }),
+  /* @__PURE__ */ u("path", { d: "M6 6l12 12" })
+], -1)), J = [
+  G
+], K = /* @__PURE__ */ x({
   __name: "Modal",
   props: {
     name: {
@@ -141,83 +141,111 @@ const m = (e, t) => {
     }
   },
   setup(e) {
-    const t = e, n = h(!1), o = h(null), l = h(null), d = h(null), i = h(null);
-    let r = null;
-    const u = () => {
-      r = r || {
+    const t = e, n = _(!1), o = _(null), i = _(null), r = _(null);
+    let l = null;
+    const s = () => {
+      l = l || {
         x: document.documentElement.clientWidth / 2 - Number(t.width.replace("px", "")) / 2,
         y: window.innerHeight / 2 - Number(t.height.replace("px", "")) / 2,
         width: Number(t.width.replace("px", "")),
         height: Number(t.height.replace("px", ""))
-      }, n.value = !0, W(async () => {
-        o.value === null || i.value == null || l.value === null || (Y(o.value, r), t.resize && V(o.value, (s) => {
-          r = s;
-        }), X(o.value, (s) => {
-          r = s;
-        }), i.value.style.height = `calc(100% - ${l.value.clientHeight}px)`);
+      }, n.value = !0, R(async () => {
+        o.value === null || i.value === null || (X(o.value, l), t.resize && O(o.value, (d) => {
+          l = d;
+        }), V(o.value, (d) => {
+          l = d;
+        }));
       });
-    }, p = () => {
+    }, a = () => {
       n.value = !1;
     };
-    return x(() => {
-      q(t.name, {
-        open: u,
-        close: p
+    return m(() => {
+      F(t.name, {
+        open: s,
+        close: a
       });
-    }), b(() => {
+    }), k(() => {
       T(t.name);
-    }), (s, f) => (_(), w("div", null, [
-      a("div", {
+    }), (d, p) => (h(), f("div", null, [
+      u("div", {
         ref_key: "$modal",
         ref: o,
-        class: C(["modal", { "modal--hidden": !n.value }])
+        class: E(["modal", { "modal--hidden": !n.value }])
       }, [
-        a("div", {
+        u("div", {
           ref_key: "$headerWrapper",
-          ref: l,
+          ref: i,
           class: "modal-header-wrapper"
         }, [
-          a("div", {
+          u("div", {
             ref_key: "$header",
-            ref: d,
+            ref: r,
             class: "modal-header"
           }, [
-            a("div", A, M(e.title), 1),
-            a("div", D, [
-              a("button", {
+            u("div", j, z(e.title), 1),
+            u("div", D, [
+              u("button", {
                 type: "button",
-                onClick: E(p, ["prevent"])
-              }, G, 8, U)
+                onClick: S(a, ["prevent"])
+              }, J, 8, U)
             ])
           ], 512)
         ], 512),
-        a("div", {
-          ref_key: "$modalBody",
-          ref: i,
-          class: "modal-body"
-        }, [
-          a("div", J, [
-            z(s.$slots, "default", {}, void 0, !0)
-          ])
-        ], 512)
+        b(d.$slots, "default", {}, void 0, !0)
       ], 2),
-      t.backdrop && n.value ? (_(), S(N, {
+      t.backdrop && n.value ? (h(), L(q, {
         key: 0,
-        onClose: p
-      })) : R("", !0)
+        onClose: a
+      })) : M("", !0)
     ]));
   }
 });
-const Z = /* @__PURE__ */ m(K, [["__scopeId", "data-v-415dd5d4"]]), P = (e) => {
+const ie = /* @__PURE__ */ g(K, [["__scopeId", "data-v-eb6adce0"]]), Q = /* @__PURE__ */ x({
+  __name: "ModalFooter",
+  setup(e) {
+    const t = _(null);
+    let n = !0;
+    return m(() => {
+      n = t.value !== null && t.value.querySelectorAll("button").length > 0;
+    }), (o, i) => I(n) ? (h(), f("div", {
+      key: 0,
+      ref_key: "$footerNode",
+      ref: t,
+      class: "modal-footer"
+    }, [
+      b(o.$slots, "default", {}, void 0, !0)
+    ], 512)) : M("", !0);
+  }
+});
+const ce = /* @__PURE__ */ g(Q, [["__scopeId", "data-v-7b30dbab"]]);
+const Z = {}, P = { class: "modal-body" }, $ = { class: "modal-body__content" };
+function ee(e, t) {
+  return h(), f("div", P, [
+    u("div", $, [
+      b(e.$slots, "default", {}, void 0, !0)
+    ])
+  ]);
+}
+const re = /* @__PURE__ */ g(Z, [["render", ee], ["__scopeId", "data-v-59882b06"]]);
+const te = {}, ne = { type: "button" };
+function oe(e, t) {
+  return h(), f("button", ne, [
+    b(e.$slots, "default", {}, void 0, !0)
+  ]);
+}
+const de = /* @__PURE__ */ g(te, [["render", oe], ["__scopeId", "data-v-182aabb5"]]), se = (e) => {
   var t;
-  (t = k(e)) == null || t.open();
-}, $ = (e) => {
+  (t = B(e)) == null || t.open();
+}, ae = (e) => {
   var t;
-  (t = k(e)) == null || t.close();
+  (t = B(e)) == null || t.close();
 };
 export {
-  Z as Modal,
-  $ as close,
-  P as open
+  ie as Modal,
+  de as ModalButton,
+  re as ModalContent,
+  ce as ModalFooter,
+  ae as close,
+  se as open
 };
 //# sourceMappingURL=modal.js.map
