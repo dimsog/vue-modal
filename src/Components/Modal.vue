@@ -7,7 +7,6 @@ import resizeModal from "../events/resizeModal";
 import moveModal from "../events/moveModal";
 import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
 import { ModalPosition } from "../Types/ModalPosition";
-import ModalFooter from "./ModalFooter.vue";
 
 const modalIsOpened = ref(false);
 const props = defineProps({
