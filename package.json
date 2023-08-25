@@ -19,7 +19,7 @@
   },
   "homepage": "https://vuemodal.com",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "vue": "^3.3.4"
   },
   "devDependencies": {
