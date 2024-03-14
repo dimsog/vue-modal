@@ -9,6 +9,9 @@ export default ($modal: HTMLElement, callback: (position: ModalPosition) => void
         const move = function (e: MouseEvent) {
             $modal.style.top = (e.clientY - y) + 'px';
             $modal.style.left = (e.clientX - x) + 'px';
+            document.body.style.userSelect = "none";
+            // s####i love u!
+            document.body.style.setProperty('-webkit-user-select', 'none');
 
             callback({
                 x: $modal.getBoundingClientRect().x,
@@ -22,6 +25,9 @@ export default ($modal: HTMLElement, callback: (position: ModalPosition) => void
 
         document.addEventListener('mouseup', () => {
             document.removeEventListener('mousemove', move);
+            document.body.style.userSelect = "";
+            // s####i love u!
+            document.body.style.setProperty('-webkit-user-select', '');
         }, {
             once: true
         });
