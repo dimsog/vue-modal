@@ -6,7 +6,6 @@ npm i @dimsog/vue-modal
 ```
 
 ### Usage
-AwesomeComponent.vue
 ```vue
 <template>
   <div>
