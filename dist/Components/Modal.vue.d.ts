@@ -67,13 +67,13 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         default: boolean;
     };
 }>>, {
-    backdrop: boolean;
-    title: string;
     resize: boolean;
-    minWidth: string;
+    title: string;
+    backdrop: boolean;
     width: string;
-    minHeight: string;
     height: string;
+    minWidth: string;
+    minHeight: string;
 }, {}>, {
     default?(_: {}): any;
 }>;
