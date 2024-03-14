@@ -8,7 +8,15 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         required: false;
         default: null;
     };
+    minWidth: {
+        type: StringConstructor;
+        default: string;
+    };
     width: {
+        type: StringConstructor;
+        default: string;
+    };
+    minHeight: {
         type: StringConstructor;
         default: string;
     };
@@ -24,7 +32,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<{
     name: {
         type: StringConstructor;
         required: true;
@@ -34,7 +42,15 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         required: false;
         default: null;
     };
+    minWidth: {
+        type: StringConstructor;
+        default: string;
+    };
     width: {
+        type: StringConstructor;
+        default: string;
+    };
+    minHeight: {
         type: StringConstructor;
         default: string;
     };
@@ -51,11 +67,13 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         default: boolean;
     };
 }>>, {
-    backdrop: boolean;
-    title: string;
     resize: boolean;
+    title: string;
+    backdrop: boolean;
     width: string;
     height: string;
+    minWidth: string;
+    minHeight: string;
 }, {}>, {
     default?(_: {}): any;
 }>;

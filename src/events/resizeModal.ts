@@ -25,7 +25,9 @@ export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) =>
         let top = originalRect.top;
         let left = originalRect.left;
 
-        $modal.style.userSelect = 'none';
+        document.body.style.userSelect = "none";
+        // s####i love u!
+        document.body.style.setProperty('-webkit-user-select', 'none');
 
         document.addEventListener('mousemove', (e: MouseEvent) => {
             if (resizeType === null) {
@@ -81,7 +83,9 @@ export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) =>
 
         $modal.addEventListener('mouseup', () => {
             resizeType = null;
-            $modal.style.userSelect = '';
+            document.body.style.userSelect = "none";
+            // s####i love u!
+            document.body.style.setProperty('-webkit-user-select', '');
         })
     });
 }

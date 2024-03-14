@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import ModalBackdrop from "./ModalBackdrop.vue";
-
 import { onMounted, onUnmounted, ref, nextTick } from "vue";
 import { addModal, deleteModal } from "../utils/ModalStorage.js";
 import resizeModal from "../events/resizeModal";
 import moveModal from "../events/moveModal";
 import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
 import { ModalPosition } from "../Types/ModalPosition";
+
+import ModalBackdrop from "./ModalBackdrop.vue";
 import ModalFooter from "./ModalFooter.vue";
+import ModalCloseButton from "./ModalCloseButton.vue";
 
 const modalIsOpened = ref(false);
 const props = defineProps({
@@ -20,9 +21,17 @@ const props = defineProps({
     required: false,
     default: null
   },
+  minWidth: {
+    type: String,
+    default: '200px',
+  },
   width: {
     type: String,
     default: '600px'
+  },
+  minHeight: {
+    type: String,
+    default: '200px',
   },
   height: {
     type: String,
@@ -56,6 +65,9 @@ const open = (): void => {
     if ($modal.value === null || $headerWrapper.value === null) {
       return;
     }
+
+    $modal.value.style.minWidth = props.minWidth;
+    $modal.value.style.minHeight = props.minHeight;
 
     updateModalSizeAndPosition($modal.value, modalPosition);
     if (props.resize) {
@@ -94,13 +106,9 @@ onUnmounted((): void => {
             {{ title }}
           </div>
           <div class="modal-header__buttons">
-            <button type="button" @click.prevent="close">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M18 6l-12 12"></path>
-                <path d="M6 6l12 12"></path>
-              </svg>
-            </button>
+            <ModalCloseButton
+              @close="close"
+            ></ModalCloseButton>
           </div>
         </div>
       </div>
