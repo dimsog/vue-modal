@@ -8,7 +8,15 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         required: false;
         default: null;
     };
+    minWidth: {
+        type: StringConstructor;
+        default: string;
+    };
     width: {
+        type: StringConstructor;
+        default: string;
+    };
+    minHeight: {
         type: StringConstructor;
         default: string;
     };
@@ -34,7 +42,15 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         required: false;
         default: null;
     };
+    minWidth: {
+        type: StringConstructor;
+        default: string;
+    };
     width: {
+        type: StringConstructor;
+        default: string;
+    };
+    minHeight: {
         type: StringConstructor;
         default: string;
     };
@@ -54,7 +70,9 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     backdrop: boolean;
     title: string;
     resize: boolean;
+    minWidth: string;
     width: string;
+    minHeight: string;
     height: string;
 }, {}>, {
     default?(_: {}): any;

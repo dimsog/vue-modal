@@ -20,9 +20,17 @@ const props = defineProps({
     required: false,
     default: null
   },
+  minWidth: {
+    type: String,
+    default: '200px',
+  },
   width: {
     type: String,
     default: '600px'
+  },
+  minHeight: {
+    type: String,
+    default: '200px',
   },
   height: {
     type: String,
@@ -56,6 +64,9 @@ const open = (): void => {
     if ($modal.value === null || $headerWrapper.value === null) {
       return;
     }
+
+    $modal.value.style.minWidth = props.minWidth;
+    $modal.value.style.minHeight = props.minHeight;
 
     updateModalSizeAndPosition($modal.value, modalPosition);
     if (props.resize) {
