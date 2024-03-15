@@ -4,6 +4,7 @@ import { addModal, deleteModal } from "../utils/ModalStorage.js";
 import resizeModal from "../events/resizeModal";
 import moveModal from "../events/moveModal";
 import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
+import { calculateX, calculateY } from "../utils/calculateStartupWindowCoordinates";
 import { ModalPosition } from "../Types/ModalPosition";
 
 import ModalBackdrop from "./ModalBackdrop.vue";
@@ -54,8 +55,8 @@ let modalPosition: ModalPosition;
 
 const open = (): void => {
   modalPosition = modalPosition || {
-    x: document.documentElement.clientWidth / 2 - Number(props.width.replace('px', '')) / 2,
-    y: window.innerHeight / 2 - Number(props.height.replace('px', '')) / 2,
+    x: calculateX(parseInt(props.width.replace('px', ''), 10)),
+    y: calculateY(parseInt(props.height.replace('px', ''), 10)),
     width: Number(props.width.replace('px', '')),
     height: Number(props.height.replace('px', ''))
   };
