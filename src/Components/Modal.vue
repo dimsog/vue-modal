@@ -50,7 +50,7 @@ const props = defineProps({
 const $modal = ref<HTMLElement | null>(null);
 const $headerWrapper = ref<HTMLElement | null>(null);
 const $header = ref<HTMLElement | null>(null);
-let modalPosition: ModalPosition | null = null;
+let modalPosition: ModalPosition;
 
 const open = (): void => {
   modalPosition = modalPosition || {
@@ -71,7 +71,7 @@ const open = (): void => {
 
     updateModalSizeAndPosition($modal.value, modalPosition);
     if (props.resize) {
-      resizeModal($modal.value, (position: ModalPosition) => {
+      resizeModal($modal.value, (position: ModalPosition): void => {
         modalPosition = position;
       });
     }

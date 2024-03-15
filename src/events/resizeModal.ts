@@ -2,7 +2,11 @@ import modalCursor from "../utils/modal-cursor";
 import modalResizeType from "../utils/modal-resize-type";
 import { ModalPosition } from "../Types/ModalPosition";
 
-export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) => {}) => {
+interface Callback {
+    (modalPosition: ModalPosition): void
+}
+
+export default ($modal: HTMLElement, callback: Callback) => {
     $modal.addEventListener('mousemove', (e) => {
         const rect = $modal.getBoundingClientRect();
         $modal.style.cursor = modalCursor(e.clientX, e.clientY, rect);
