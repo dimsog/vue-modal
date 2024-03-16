@@ -4,11 +4,11 @@ import { addModal, deleteModal } from "../utils/ModalStorage.js";
 import resizeModal from "../events/resizeModal";
 import moveModal from "../events/moveModal";
 import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
-import { calculateX, calculateY } from "../utils/calculateStartupWindowCoordinates";
 import { ModalPosition } from "../Types/ModalPosition";
 
 import ModalBackdrop from "./ModalBackdrop.vue";
 import ModalCloseButton from "./ModalCloseButton.vue";
+import {getStartupModalPosition, normalizeSizeFromProps} from "../utils/modal-utils";
 
 const modalIsOpened = ref(false);
 const props = defineProps({
@@ -53,12 +53,10 @@ const $header = ref<HTMLElement | null>(null);
 let modalPosition: ModalPosition;
 
 const open = (): void => {
-  modalPosition = modalPosition || {
-    x: calculateX(parseInt(props.width.replace('px', ''), 10)),
-    y: calculateY(parseInt(props.height.replace('px', ''), 10)),
-    width: Number(props.width.replace('px', '')),
-    height: Number(props.height.replace('px', ''))
-  };
+  modalPosition = modalPosition || getStartupModalPosition(
+      normalizeSizeFromProps(props.width),
+      normalizeSizeFromProps(props.height),
+  );
   modalIsOpened.value = true;
 
   nextTick(async () => {
