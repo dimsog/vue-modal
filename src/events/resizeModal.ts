@@ -73,9 +73,12 @@ export default ($modal: HTMLElement, callback: Callback) => {
             }
 
             $modal.style.width = width + 'px';
-            $modal.style.height = height + 'px';
             $modal.style.left = left + 'px';
-            $modal.style.top = top + 'px';
+
+            if (e.clientY >= 0) {
+                $modal.style.height = height + 'px';
+                $modal.style.top = top + 'px';
+            }
 
             callback({
                 x: $modal.getBoundingClientRect().x,
@@ -85,7 +88,7 @@ export default ($modal: HTMLElement, callback: Callback) => {
             });
         });
 
-        $modal.addEventListener('mouseup', () => {
+        document.addEventListener('mouseup', () => {
             resizeType = null;
             document.body.style.userSelect = "none";
             // s####i love u!

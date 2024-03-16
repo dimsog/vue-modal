@@ -7,7 +7,11 @@ export default ($modal: HTMLElement, callback: (position: ModalPosition) => void
         const y = e.clientY - $modal.getBoundingClientRect().top;
 
         const move = function (e: MouseEvent) {
-            $modal.style.top = (e.clientY - y) + 'px';
+            let _y = (e.clientY - y);
+            if (_y < 0) {
+                _y = 0;
+            }
+            $modal.style.top = _y + 'px';
             $modal.style.left = (e.clientX - x) + 'px';
             document.body.style.userSelect = "none";
             // s####i love u!
