@@ -8,7 +8,6 @@ import { calculateX, calculateY } from "../utils/calculateStartupWindowCoordinat
 import { ModalPosition } from "../Types/ModalPosition";
 
 import ModalBackdrop from "./ModalBackdrop.vue";
-import ModalFooter from "./ModalFooter.vue";
 import ModalCloseButton from "./ModalCloseButton.vue";
 
 const modalIsOpened = ref(false);
