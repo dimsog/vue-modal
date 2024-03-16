@@ -2,9 +2,9 @@ import { ModalPosition } from "../Types/ModalPosition";
 
 export default ($modal: HTMLElement, callback: (position: ModalPosition) => void): void => {
     const $header = $modal.querySelector('.modal-header');
-    $header.addEventListener('mousedown', (e: MouseEvent) => {
-        let x = e.clientX - $modal.getBoundingClientRect().left;
-        let y = e.clientY - $modal.getBoundingClientRect().top;
+    $header?.addEventListener('mousedown', (e: MouseEvent): void => {
+        const x = e.clientX - $modal.getBoundingClientRect().left;
+        const y = e.clientY - $modal.getBoundingClientRect().top;
 
         const move = function (e: MouseEvent) {
             $modal.style.top = (e.clientY - y) + 'px';
