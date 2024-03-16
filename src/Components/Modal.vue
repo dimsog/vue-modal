@@ -130,7 +130,7 @@ onUnmounted((): void => {
   background: #fff;
   border-radius: 8px;
   border: 1px solid rgba(30, 29, 29, 0.16);
-  box-shadow: 0 0 15px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 0 25px 0 rgba(0,0,0,0.20);
   overflow: hidden;
 
   .modal-header-wrapper {
