@@ -41,6 +41,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  staticBackdrop: {
+    type: Boolean,
+    default: false,
+  },
   resize: {
     type: Boolean,
     default: true
@@ -83,6 +87,12 @@ const close = (): void => {
   modalIsOpened.value = false;
 }
 
+const onCloseBackdrop = () => {
+  if (!props.staticBackdrop) {
+    close();
+  }
+}
+
 onMounted(():void => {
   addModal(props.name, {
     open,
@@ -113,7 +123,7 @@ onUnmounted((): void => {
       <slot></slot>
     </div>
 
-    <modal-backdrop v-if="props.backdrop && modalIsOpened" @close="close"></modal-backdrop>
+    <modal-backdrop v-if="props.backdrop && modalIsOpened" @close="onCloseBackdrop"></modal-backdrop>
   </div>
 </template>
 
