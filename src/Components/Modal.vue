@@ -145,7 +145,7 @@ onUnmounted((): void => {
 
   .modal-header-wrapper {
     background: #f3f4f6;
-    padding: .5rem .7rem;
+    padding: .3rem .5rem;
     .modal-header {
       display: flex;
       justify-content: space-between;
