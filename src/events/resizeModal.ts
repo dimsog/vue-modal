@@ -1,6 +1,7 @@
 import modalCursor from "../utils/modal-cursor";
 import modalResizeType from "../utils/modal-resize-type";
 import { ResizeModalOptions } from "../Types/ResizeModalOptions";
+import {normalizeSizeFromProps} from "../utils/modal-utils";
 
 export default ($modal: HTMLElement, options: ResizeModalOptions) => {
     $modal.addEventListener('pointermove', (e) => {
@@ -20,6 +21,8 @@ export default ($modal: HTMLElement, options: ResizeModalOptions) => {
 
         const originalWidth = $modal.clientWidth;
         const originalHeight = $modal.clientHeight;
+        const originalMinWidth = normalizeSizeFromProps($modal.style.minWidth ?? '');
+        const originalMinHeight = normalizeSizeFromProps($modal.style.minHeight ?? '')
         let width = originalWidth;
         let height = originalHeight;
         let top = originalRect.top;
@@ -41,27 +44,38 @@ export default ($modal: HTMLElement, options: ResizeModalOptions) => {
                 width = originalWidth + (e.clientX - x);
             }
             if (resizeType === 'top') {
-                top = originalRect.top + (e.clientY - y);
                 height = originalHeight - (e.clientY - y);
+                if (height > originalMinHeight) {
+                    top = originalRect.top + (e.clientY - y);
+                }
             }
             if (resizeType === 'bottom') {
                 height = originalHeight + (e.clientY - y);
             }
             if (resizeType == 'top-left') {
-                left = originalRect.left + (e.clientX - x);
                 width = originalWidth - (e.clientX - x);
-                top = originalRect.top + (e.clientY - y);
+                if (width > originalMinWidth) {
+                    left = originalRect.left + (e.clientX - x);
+                }
+
                 height = originalHeight - (e.clientY - y);
+                if (height > originalMinHeight) {
+                    top = originalRect.top + (e.clientY - y);
+                }
             }
             if (resizeType == 'top-right') {
                 width = originalWidth + (e.clientX - x);
-                top = originalRect.top + (e.clientY - y);
-                height = originalHeight - (e.clientY - y);
+                if (width > originalMinWidth) {
+                    top = originalRect.top + (e.clientY - y);
+                    height = originalHeight - (e.clientY - y);
+                }
             }
             if (resizeType == 'bottom-left') {
-                left = originalRect.left + (e.clientX - x);
                 width = originalWidth - (e.clientX - x);
                 height = originalHeight + (e.clientY - y);
+                if (width > originalMinWidth) {
+                    left = originalRect.left + (e.clientX - x);
+                }
             }
             if (resizeType == 'bottom-right') {
                 width = originalWidth + (e.clientX - x);
