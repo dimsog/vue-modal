@@ -1,4 +1,5 @@
 import { ModalPosition } from "../Types/ModalPosition";
+import { getModals } from "./ModalStorage";
 
 const calculateX = (width: number): number => {
     return Math.round(document.documentElement.clientWidth / 2 - width / 2);
@@ -25,7 +26,19 @@ const getStartupModalPosition = (width: number, height: number): ModalPosition =
     }
 }
 
+const getMaxZIndexOfModals = (): number => {
+    let zIndex = 1000;
+    for (const modalOption of getModals().values()) {
+        const zIndexOfCurrentModal = modalOption.getZIndex();
+        if (zIndexOfCurrentModal > zIndex) {
+            zIndex = zIndexOfCurrentModal;
+        }
+    }
+    return zIndex;
+}
+
 export {
     normalizeSizeFromProps,
     getStartupModalPosition,
+    getMaxZIndexOfModals,
 }

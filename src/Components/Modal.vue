@@ -8,7 +8,7 @@ import { ModalPosition } from "../Types/ModalPosition";
 
 import ModalBackdrop from "./ModalBackdrop.vue";
 import ModalCloseButton from "./ModalCloseButton.vue";
-import {getStartupModalPosition, normalizeSizeFromProps} from "../utils/modal-utils";
+import {getMaxZIndexOfModals, getStartupModalPosition, normalizeSizeFromProps} from "../utils/modal-utils";
 
 const modalIsOpened = ref(false);
 const modalIsActive = ref(false);
@@ -95,17 +95,6 @@ const open = (): void => {
 
 const getZIndex = (): number => {
   return Number($modal.value?.style.zIndex ?? 1000);
-}
-
-const getMaxZIndexOfModals = (): number => {
-  let zIndex = 1000;
-  for (const modalOption of getModals().values()) {
-    const zIndexOfCurrentModal = modalOption.getZIndex();
-    if (zIndexOfCurrentModal > zIndex) {
-      zIndex = zIndexOfCurrentModal;
-    }
-  }
-  return zIndex;
 }
 
 const activate = (): void => {
