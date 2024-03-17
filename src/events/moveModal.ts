@@ -1,12 +1,12 @@
-import { ModalPosition } from "../Types/ModalPosition";
+import {MoveModalOptions} from "../Types/MoveModalOptions";
 
-export default ($modal: HTMLElement, callback: (position: ModalPosition) => void): void => {
+export default ($modal: HTMLElement, options: MoveModalOptions): void => {
     const $header = $modal.querySelector('.modal-header');
-    $header?.addEventListener('mousedown', (e: MouseEvent): void => {
+    $header?.addEventListener('pointerdown', (e: PointerEvent): void => {
         const x = e.clientX - $modal.getBoundingClientRect().left;
         const y = e.clientY - $modal.getBoundingClientRect().top;
 
-        const move = function (e: MouseEvent) {
+        const move = function (e: PointerEvent) {
             let _y = (e.clientY - y);
             if (_y < 0) {
                 _y = 0;
@@ -17,7 +17,7 @@ export default ($modal: HTMLElement, callback: (position: ModalPosition) => void
             // s####i love u!
             document.body.style.setProperty('-webkit-user-select', 'none');
 
-            callback({
+            options.move({
                 x: $modal.getBoundingClientRect().x,
                 y: $modal.getBoundingClientRect().y,
                 width: $modal.clientWidth,
@@ -25,10 +25,10 @@ export default ($modal: HTMLElement, callback: (position: ModalPosition) => void
             })
         }
 
-        document.addEventListener('mousemove', move);
+        document.addEventListener('pointermove', move);
 
-        document.addEventListener('mouseup', () => {
-            document.removeEventListener('mousemove', move);
+        document.addEventListener('pointerup', () => {
+            document.removeEventListener('pointermove', move);
             document.body.style.userSelect = "";
             // s####i love u!
             document.body.style.setProperty('-webkit-user-select', '');

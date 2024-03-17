@@ -1,18 +1,14 @@
 import modalCursor from "../utils/modal-cursor";
 import modalResizeType from "../utils/modal-resize-type";
-import { ModalPosition } from "../Types/ModalPosition";
+import { ResizeModalOptions } from "../Types/ResizeModalOptions";
 
-interface Callback {
-    (modalPosition: ModalPosition): void
-}
-
-export default ($modal: HTMLElement, callback: Callback) => {
-    $modal.addEventListener('mousemove', (e) => {
+export default ($modal: HTMLElement, options: ResizeModalOptions) => {
+    $modal.addEventListener('pointermove', (e) => {
         const rect = $modal.getBoundingClientRect();
         $modal.style.cursor = modalCursor(e.clientX, e.clientY, rect);
     });
 
-    $modal.addEventListener('mousedown', (e) => {
+    $modal.addEventListener('pointerdown', (e) => {
         const x = e.clientX;
         const y = e.clientY;
         const originalRect = $modal.getBoundingClientRect();
@@ -33,7 +29,7 @@ export default ($modal: HTMLElement, callback: Callback) => {
         // s####i love u!
         document.body.style.setProperty('-webkit-user-select', 'none');
 
-        document.addEventListener('mousemove', (e: MouseEvent) => {
+        document.addEventListener('pointermove', (e: PointerEvent) => {
             if (resizeType === null) {
                 return;
             }
@@ -80,7 +76,7 @@ export default ($modal: HTMLElement, callback: Callback) => {
                 $modal.style.top = top + 'px';
             }
 
-            callback({
+            options.resize({
                 x: $modal.getBoundingClientRect().x,
                 y: $modal.getBoundingClientRect().y,
                 width: $modal.clientWidth,
@@ -88,7 +84,7 @@ export default ($modal: HTMLElement, callback: Callback) => {
             });
         });
 
-        document.addEventListener('mouseup', () => {
+        document.addEventListener('pointerup', () => {
             resizeType = null;
             document.body.style.userSelect = "none";
             // s####i love u!

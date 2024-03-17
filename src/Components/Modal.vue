@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, nextTick } from "vue";
-import { addModal, deleteModal } from "../utils/ModalStorage.js";
+import {addModal, deleteModal, getModals} from "../utils/ModalStorage.js";
 import resizeModal from "../events/resizeModal";
 import moveModal from "../events/moveModal";
 import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
@@ -11,6 +11,8 @@ import ModalCloseButton from "./ModalCloseButton.vue";
 import {getStartupModalPosition, normalizeSizeFromProps} from "../utils/modal-utils";
 
 const modalIsOpened = ref(false);
+const modalIsActive = ref(false);
+
 const props = defineProps({
   name: {
     type: String,
@@ -68,20 +70,59 @@ const open = (): void => {
       return;
     }
 
+    activate();
+
+    $modal.value.style.zIndex = (getMaxZIndexOfModals() + 1).toString();
     $modal.value.style.minWidth = props.minWidth;
     $modal.value.style.minHeight = props.minHeight;
 
     updateModalSizeAndPosition($modal.value, modalPosition);
     if (props.resize) {
-      resizeModal($modal.value, (position: ModalPosition): void => {
-        modalPosition = position;
+      resizeModal($modal.value, {
+        resize: (position: ModalPosition): void => {
+          modalPosition = position;
+        },
       });
     }
-    moveModal($modal.value, (position: ModalPosition) => {
-      modalPosition = position;
-    })
-  })
+
+    moveModal($modal.value, {
+      move: (position: ModalPosition) => {
+        modalPosition = position;
+      }
+    });
+  });
 };
+
+const getZIndex = (): number => {
+  return Number($modal.value?.style.zIndex ?? 1000);
+}
+
+const getMaxZIndexOfModals = (): number => {
+  let zIndex = 1000;
+  for (const modalOption of getModals().values()) {
+    const zIndexOfCurrentModal = modalOption.getZIndex();
+    if (zIndexOfCurrentModal > zIndex) {
+      zIndex = zIndexOfCurrentModal;
+    }
+  }
+  return zIndex;
+}
+
+const activate = (): void => {
+  if ($modal.value === null || modalIsActive.value === true) {
+    return;
+  }
+  for (const anotherModal of getModals().values()) {
+    anotherModal.deactivate();
+  }
+  let zIndex = getMaxZIndexOfModals() + 1;
+  modalIsActive.value = true;
+  $modal.value.style.zIndex = zIndex.toString();
+}
+
+const deactivate = (): void => {
+  modalIsActive.value = false;
+}
 
 const close = (): void => {
   modalIsOpened.value = false;
@@ -96,7 +137,10 @@ const onCloseBackdrop = () => {
 onMounted(():void => {
   addModal(props.name, {
     open,
-    close
+    close,
+    activate,
+    deactivate,
+    getZIndex,
   });
 });
 
@@ -107,7 +151,7 @@ onUnmounted((): void => {
 
 <template>
   <div>
-    <div ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened}">
+    <div @pointerdown="activate" ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened}">
       <div ref="$headerWrapper" class="modal-header-wrapper">
         <div ref="$header" class="modal-header">
           <div class="modal-header__title">
@@ -136,7 +180,6 @@ onUnmounted((): void => {
   flex-direction: column;
   font-family: sans-serif;
   position: fixed;
-  z-index: 1000;
   background: #fff;
   border-radius: 8px;
   border: 1px solid rgba(30, 29, 29, 0.16);

@@ -18,7 +18,12 @@ const deleteModal = (name: string): void => {
     modals.delete(name);
 }
 
+const getModals = (): Map<string, ModalOptions> => {
+    return modals;
+}
+
 export {
+    getModals,
     addModal,
     getModal,
     deleteModal
