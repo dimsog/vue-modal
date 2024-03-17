@@ -1,4 +1,4 @@
-import {ModalPosition} from "../Types/ModalPosition";
+import { ModalPosition } from "../Types/ModalPosition";
 
 const calculateX = (width: number): number => {
     return Math.round(document.documentElement.clientWidth / 2 - width / 2);
