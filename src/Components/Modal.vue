@@ -1,16 +1,19 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, nextTick } from "vue";
-import { addModal, deleteModal } from "../utils/ModalStorage.js";
+import {addModal, deleteModal, getModals} from "../utils/ModalStorage.js";
 import resizeModal from "../events/resizeModal";
 import moveModal from "../events/moveModal";
 import updateModalSizeAndPosition from "../utils/updateModalSizeAndPosition";
 import { ModalPosition } from "../Types/ModalPosition";
 
 import ModalBackdrop from "./ModalBackdrop.vue";
-import ModalFooter from "./ModalFooter.vue";
 import ModalCloseButton from "./ModalCloseButton.vue";
+import {getMaxZIndexOfModals, getStartupModalPosition, normalizeSizeFromProps} from "../utils/modal-utils";
 
 const modalIsOpened = ref(false);
+const modalIsVisible = ref(false);
+const modalIsActive = ref(false);
+
 const props = defineProps({
   name: {
     type: String,
@@ -41,6 +44,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  staticBackdrop: {
+    type: Boolean,
+    default: false,
+  },
   resize: {
     type: Boolean,
     default: true
@@ -50,45 +57,91 @@ const props = defineProps({
 const $modal = ref<HTMLElement | null>(null);
 const $headerWrapper = ref<HTMLElement | null>(null);
 const $header = ref<HTMLElement | null>(null);
-let modalPosition: ModalPosition | null = null;
+let modalPosition: ModalPosition;
 
 const open = (): void => {
-  modalPosition = modalPosition || {
-    x: document.documentElement.clientWidth / 2 - Number(props.width.replace('px', '')) / 2,
-    y: window.innerHeight / 2 - Number(props.height.replace('px', '')) / 2,
-    width: Number(props.width.replace('px', '')),
-    height: Number(props.height.replace('px', ''))
-  };
+  modalPosition = modalPosition || getStartupModalPosition(
+      normalizeSizeFromProps(props.width),
+      normalizeSizeFromProps(props.height),
+  );
   modalIsOpened.value = true;
+  setTimeout(() => modalIsVisible.value = true, 10);
 
   nextTick(async () => {
     if ($modal.value === null || $headerWrapper.value === null) {
       return;
     }
 
+    activate();
+
+    $modal.value.style.zIndex = (getMaxZIndexOfModals() + 1).toString();
     $modal.value.style.minWidth = props.minWidth;
     $modal.value.style.minHeight = props.minHeight;
 
     updateModalSizeAndPosition($modal.value, modalPosition);
     if (props.resize) {
-      resizeModal($modal.value, (position: ModalPosition) => {
-        modalPosition = position;
+      resizeModal($modal.value, {
+        resize: (position: ModalPosition): void => {
+          modalPosition = position;
+        },
       });
     }
-    moveModal($modal.value, (position: ModalPosition) => {
-      modalPosition = position;
-    })
-  })
+
+    moveModal($modal.value, {
+      move: (position: ModalPosition) => {
+        modalPosition = position;
+      }
+    });
+  });
 };
 
+const getZIndex = (): number => {
+  return Number($modal.value?.style.zIndex ?? 1000);
+}
+
+const activate = (): void => {
+  if ($modal.value === null || modalIsActive.value === true) {
+    return;
+  }
+  for (const anotherModal of getModals().values()) {
+    anotherModal.deactivate();
+  }
+  let zIndex = getMaxZIndexOfModals() + 1;
+  modalIsActive.value = true;
+  $modal.value.style.zIndex = zIndex.toString();
+}
+
+const deactivate = (): void => {
+  modalIsActive.value = false;
+  if ($modal.value !== null) {
+    let zIndex = Number($modal.value.style.zIndex) - 1;
+    if (zIndex < 1000) {
+      zIndex = 1000;
+    }
+    $modal.value.style.setProperty('z-index', zIndex.toString());
+  }
+}
+
 const close = (): void => {
-  modalIsOpened.value = false;
+  modalIsVisible.value = false;
+  setTimeout(() => {
+    modalIsOpened.value = false;
+  }, 150);
+}
+
+const onCloseBackdrop = () => {
+  if (!props.staticBackdrop) {
+    close();
+  }
 }
 
 onMounted(():void => {
   addModal(props.name, {
     open,
-    close
+    close,
+    activate,
+    deactivate,
+    getZIndex,
   });
 });
 
@@ -99,7 +152,7 @@ onUnmounted((): void => {
 
 <template>
   <div>
-    <div ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened}">
+    <div @pointerdown="activate" ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened, 'modal-visible': modalIsVisible}">
       <div ref="$headerWrapper" class="modal-header-wrapper">
         <div ref="$header" class="modal-header">
           <div class="modal-header__title">
@@ -115,7 +168,9 @@ onUnmounted((): void => {
       <slot></slot>
     </div>
 
-    <modal-backdrop v-if="props.backdrop && modalIsOpened" @close="close"></modal-backdrop>
+    <Transition>
+      <modal-backdrop v-if="props.backdrop && modalIsOpened" @close="onCloseBackdrop"></modal-backdrop>
+    </Transition>
   </div>
 </template>
 
@@ -123,21 +178,27 @@ onUnmounted((): void => {
 .modal--hidden {
   display: none !important;
 }
+
+.modal-visible {
+  opacity: 1 !important;
+}
+
 .modal {
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
   position: fixed;
-  z-index: 1000;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 11px;
   border: 1px solid rgba(30, 29, 29, 0.16);
-  box-shadow: 0 0 15px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 0 25px 0 rgba(0,0,0,0.20);
   overflow: hidden;
+  opacity: 0;
+  transition: opacity .15s ease-in-out 0s;
 
   .modal-header-wrapper {
     background: #f3f4f6;
-    padding: .5rem .7rem;
+    padding: .3rem .5rem;
     .modal-header {
       display: flex;
       justify-content: space-between;

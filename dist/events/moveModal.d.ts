@@ -1,3 +1,3 @@
-import { ModalPosition } from "../Types/ModalPosition";
-declare const _default: ($modal: HTMLElement, callback: (position: ModalPosition) => void) => void;
+import { MoveModalOptions } from "../Types/MoveModalOptions";
+declare const _default: ($modal: HTMLElement, options: MoveModalOptions) => void;
 export default _default;

@@ -37,6 +37,16 @@ onUnmounted((): void => {
   z-index: 900;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, .5);
+  background: #000;
+  opacity: .5;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

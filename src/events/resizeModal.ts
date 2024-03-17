@@ -1,14 +1,15 @@
 import modalCursor from "../utils/modal-cursor";
 import modalResizeType from "../utils/modal-resize-type";
-import { ModalPosition } from "../Types/ModalPosition";
+import { ResizeModalOptions } from "../Types/ResizeModalOptions";
+import {normalizeSizeFromProps} from "../utils/modal-utils";
 
-export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) => {}) => {
-    $modal.addEventListener('mousemove', (e) => {
+export default ($modal: HTMLElement, options: ResizeModalOptions) => {
+    $modal.addEventListener('pointermove', (e) => {
         const rect = $modal.getBoundingClientRect();
         $modal.style.cursor = modalCursor(e.clientX, e.clientY, rect);
     });
 
-    $modal.addEventListener('mousedown', (e) => {
+    $modal.addEventListener('pointerdown', (e) => {
         const x = e.clientX;
         const y = e.clientY;
         const originalRect = $modal.getBoundingClientRect();
@@ -20,6 +21,8 @@ export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) =>
 
         const originalWidth = $modal.clientWidth;
         const originalHeight = $modal.clientHeight;
+        const originalMinWidth = normalizeSizeFromProps($modal.style.minWidth ?? '');
+        const originalMinHeight = normalizeSizeFromProps($modal.style.minHeight ?? '')
         let width = originalWidth;
         let height = originalHeight;
         let top = originalRect.top;
@@ -29,7 +32,7 @@ export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) =>
         // s####i love u!
         document.body.style.setProperty('-webkit-user-select', 'none');
 
-        document.addEventListener('mousemove', (e: MouseEvent) => {
+        document.addEventListener('pointermove', (e: PointerEvent) => {
             if (resizeType === null) {
                 return;
             }
@@ -41,27 +44,38 @@ export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) =>
                 width = originalWidth + (e.clientX - x);
             }
             if (resizeType === 'top') {
-                top = originalRect.top + (e.clientY - y);
                 height = originalHeight - (e.clientY - y);
+                if (height > originalMinHeight) {
+                    top = originalRect.top + (e.clientY - y);
+                }
             }
             if (resizeType === 'bottom') {
                 height = originalHeight + (e.clientY - y);
             }
             if (resizeType == 'top-left') {
-                left = originalRect.left + (e.clientX - x);
                 width = originalWidth - (e.clientX - x);
-                top = originalRect.top + (e.clientY - y);
+                if (width > originalMinWidth) {
+                    left = originalRect.left + (e.clientX - x);
+                }
+
                 height = originalHeight - (e.clientY - y);
+                if (height > originalMinHeight) {
+                    top = originalRect.top + (e.clientY - y);
+                }
             }
             if (resizeType == 'top-right') {
                 width = originalWidth + (e.clientX - x);
-                top = originalRect.top + (e.clientY - y);
-                height = originalHeight - (e.clientY - y);
+                if (width > originalMinWidth) {
+                    top = originalRect.top + (e.clientY - y);
+                    height = originalHeight - (e.clientY - y);
+                }
             }
             if (resizeType == 'bottom-left') {
-                left = originalRect.left + (e.clientX - x);
                 width = originalWidth - (e.clientX - x);
                 height = originalHeight + (e.clientY - y);
+                if (width > originalMinWidth) {
+                    left = originalRect.left + (e.clientX - x);
+                }
             }
             if (resizeType == 'bottom-right') {
                 width = originalWidth + (e.clientX - x);
@@ -69,11 +83,14 @@ export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) =>
             }
 
             $modal.style.width = width + 'px';
-            $modal.style.height = height + 'px';
             $modal.style.left = left + 'px';
-            $modal.style.top = top + 'px';
 
-            callback({
+            if (e.clientY >= 0) {
+                $modal.style.height = height + 'px';
+                $modal.style.top = top + 'px';
+            }
+
+            options.resize({
                 x: $modal.getBoundingClientRect().x,
                 y: $modal.getBoundingClientRect().y,
                 width: $modal.clientWidth,
@@ -81,7 +98,7 @@ export default ($modal: HTMLElement, callback: (modalPosition: ModalPosition) =>
             });
         });
 
-        $modal.addEventListener('mouseup', () => {
+        document.addEventListener('pointerup', () => {
             resizeType = null;
             document.body.style.userSelect = "none";
             // s####i love u!

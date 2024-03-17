@@ -28,6 +28,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    staticBackdrop: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
     resize: {
         type: BooleanConstructor;
         default: boolean;
@@ -62,6 +66,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    staticBackdrop: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
     resize: {
         type: BooleanConstructor;
         default: boolean;
@@ -74,6 +82,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     height: string;
     minWidth: string;
     minHeight: string;
+    staticBackdrop: boolean;
 }, {}>, {
     default?(_: {}): any;
 }>;
