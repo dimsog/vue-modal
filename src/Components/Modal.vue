@@ -11,6 +11,7 @@ import ModalCloseButton from "./ModalCloseButton.vue";
 import {getMaxZIndexOfModals, getStartupModalPosition, normalizeSizeFromProps} from "../utils/modal-utils";
 
 const modalIsOpened = ref(false);
+const modalIsVisible = ref(false);
 const modalIsActive = ref(false);
 
 const props = defineProps({
@@ -64,6 +65,7 @@ const open = (): void => {
       normalizeSizeFromProps(props.height),
   );
   modalIsOpened.value = true;
+  setTimeout(() => modalIsVisible.value = true, 10);
 
   nextTick(async () => {
     if ($modal.value === null || $headerWrapper.value === null) {
@@ -121,7 +123,10 @@ const deactivate = (): void => {
 }
 
 const close = (): void => {
-  modalIsOpened.value = false;
+  modalIsVisible.value = false;
+  setTimeout(() => {
+    modalIsOpened.value = false;
+  }, 150);
 }
 
 const onCloseBackdrop = () => {
@@ -147,7 +152,7 @@ onUnmounted((): void => {
 
 <template>
   <div>
-    <div @pointerdown="activate" ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened}">
+    <div @pointerdown="activate" ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened, 'modal-visible': modalIsVisible}">
       <div ref="$headerWrapper" class="modal-header-wrapper">
         <div ref="$header" class="modal-header">
           <div class="modal-header__title">
@@ -163,7 +168,9 @@ onUnmounted((): void => {
       <slot></slot>
     </div>
 
-    <modal-backdrop v-if="props.backdrop && modalIsOpened" @close="onCloseBackdrop"></modal-backdrop>
+    <Transition>
+      <modal-backdrop v-if="props.backdrop && modalIsOpened" @close="onCloseBackdrop"></modal-backdrop>
+    </Transition>
   </div>
 </template>
 
@@ -171,16 +178,23 @@ onUnmounted((): void => {
 .modal--hidden {
   display: none !important;
 }
+
+.modal-visible {
+  opacity: 1 !important;
+}
+
 .modal {
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
   position: fixed;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 11px;
   border: 1px solid rgba(30, 29, 29, 0.16);
   box-shadow: 0 0 25px 0 rgba(0,0,0,0.20);
   overflow: hidden;
+  opacity: 0;
+  transition: opacity .15s ease-in-out 0s;
 
   .modal-header-wrapper {
     background: #f3f4f6;
