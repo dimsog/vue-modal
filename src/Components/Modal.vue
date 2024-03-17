@@ -111,6 +111,13 @@ const activate = (): void => {
 
 const deactivate = (): void => {
   modalIsActive.value = false;
+  if ($modal.value !== null) {
+    let zIndex = Number($modal.value.style.zIndex) - 1;
+    if (zIndex < 1000) {
+      zIndex = 1000;
+    }
+    $modal.value.style.setProperty('z-index', zIndex.toString());
+  }
 }
 
 const close = (): void => {
