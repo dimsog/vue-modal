@@ -210,7 +210,9 @@ onUnmounted((): void => {
       user-select: none;
 
       .modal-header__buttons {
+        line-height: 0;
         button {
+          line-height: 0;
           background: transparent;
           border: none;
           padding: 0;
