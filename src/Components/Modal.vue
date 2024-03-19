@@ -51,6 +51,10 @@ const props = defineProps({
   resize: {
     type: Boolean,
     default: true
+  },
+  theme: {
+    type: String,
+    default: 'white'
   }
 });
 
@@ -152,7 +156,7 @@ onUnmounted((): void => {
 
 <template>
   <div>
-    <div @pointerdown="activate" ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened, 'modal-visible': modalIsVisible}">
+    <div @pointerdown="activate" ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened, 'modal-visible': modalIsVisible, 'modal--theme-black': props.theme === 'black'}">
       <div ref="$headerWrapper" class="modal-header-wrapper">
         <div ref="$header" class="modal-header">
           <div class="modal-header__title">
@@ -212,6 +216,14 @@ onUnmounted((): void => {
           padding: 0;
         }
       }
+    }
+  }
+
+  &.modal--theme-black {
+    background: #292a2e;
+    color: #d0d0dc;
+    .modal-header-wrapper {
+      background: #25262b;
     }
   }
 }

@@ -21,4 +21,10 @@ onMounted((): void => {
   padding: .7rem;
   background: #f3f4f6;
 }
+
+.modal.modal--theme-black {
+  .modal-footer {
+    background: #25262b;
+  }
+}
 </style>
