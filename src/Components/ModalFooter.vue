@@ -18,7 +18,13 @@ onMounted((): void => {
 <style lang="scss" scoped>
 .modal-footer {
   text-align: right;
-  padding: .7rem;
+  padding: .5rem;
   background: #f3f4f6;
+}
+
+.modal.modal--theme-black {
+  .modal-footer {
+    background: #25262b;
+  }
 }
 </style>
