@@ -1,12 +1,12 @@
-import { defineComponent as w, ref as f, onMounted as B, onUnmounted as I, openBlock as h, createElementBlock as v, withModifiers as R, pushScopeId as N, popScopeId as T, createElementVNode as p, normalizeClass as F, toDisplayString as O, createVNode as C, renderSlot as M, Transition as P, withCtx as q, createBlock as V, createCommentVNode as E, nextTick as Y, unref as A } from "vue";
-const k = /* @__PURE__ */ new Map(), X = (e, t) => {
-  k.set(e, t);
+import { defineComponent as w, ref as _, onMounted as B, onUnmounted as I, openBlock as h, createElementBlock as v, withModifiers as R, pushScopeId as N, popScopeId as T, createElementVNode as p, normalizeClass as F, toDisplayString as O, createVNode as C, renderSlot as k, Transition as P, withCtx as q, createBlock as V, createCommentVNode as E, nextTick as Y, unref as A } from "vue";
+const M = /* @__PURE__ */ new Map(), X = (e, t) => {
+  M.set(e, t);
 }, W = (e) => {
-  const t = k.get(e);
+  const t = M.get(e);
   return t === void 0 ? null : t;
 }, Z = (e) => {
-  k.delete(e);
-}, H = () => k, L = (e, t, n) => e - n.left > -10 && e - n.left < 10 && t - n.top > -10 && t - n.top < 10 ? "top-left" : n.right - e > -10 && n.right - e < 10 && t - n.top > -10 && t - n.top < 10 ? "top-right" : n.bottom - t > -10 && n.bottom - t < 10 && e - n.left > -10 && e - n.left < 10 ? "bottom-left" : n.bottom - t > -10 && n.bottom - t < 10 && n.right - e > -10 && n.right - e < 10 ? "bottom-right" : e - n.left > -5 && e - n.left < 5 ? "left" : n.right - e > -5 && n.right - e < 5 ? "right" : t - n.top > -5 && t - n.top < 5 ? "top" : n.bottom - t > -5 && n.bottom - t < 5 ? "bottom" : null, j = (e, t, n) => {
+  M.delete(e);
+}, H = () => M, L = (e, t, n) => e - n.left > -10 && e - n.left < 10 && t - n.top > -10 && t - n.top < 10 ? "top-left" : n.right - e > -10 && n.right - e < 10 && t - n.top > -10 && t - n.top < 10 ? "top-right" : n.bottom - t > -10 && n.bottom - t < 10 && e - n.left > -10 && e - n.left < 10 ? "bottom-left" : n.bottom - t > -10 && n.bottom - t < 10 && n.right - e > -10 && n.right - e < 10 ? "bottom-right" : e - n.left > -5 && e - n.left < 5 ? "left" : n.right - e > -5 && n.right - e < 5 ? "right" : t - n.top > -5 && t - n.top < 5 ? "top" : n.bottom - t > -5 && n.bottom - t < 5 ? "bottom" : null, j = (e, t, n) => {
   switch (L(e, t, n)) {
     case "left":
     case "right":
@@ -48,9 +48,9 @@ const k = /* @__PURE__ */ new Map(), X = (e, t) => {
     if (r === null)
       return;
     const a = e.clientWidth, c = e.clientHeight, m = x(e.style.minWidth ?? ""), b = x(e.style.minHeight ?? "");
-    let d = a, u = c, _ = i.top, y = i.left;
+    let d = a, u = c, f = i.top, y = i.left;
     document.body.style.userSelect = "none", document.body.style.setProperty("-webkit-user-select", "none"), document.addEventListener("pointermove", (o) => {
-      r !== null && (r === "left" && (y = i.left + (o.clientX - s), d = a - (o.clientX - s)), r === "right" && (d = a + (o.clientX - s)), r === "top" && (u = c - (o.clientY - l), u > b && (_ = i.top + (o.clientY - l))), r === "bottom" && (u = c + (o.clientY - l)), r == "top-left" && (d = a - (o.clientX - s), d > m && (y = i.left + (o.clientX - s)), u = c - (o.clientY - l), u > b && (_ = i.top + (o.clientY - l))), r == "top-right" && (d = a + (o.clientX - s), d > m && (_ = i.top + (o.clientY - l), u = c - (o.clientY - l))), r == "bottom-left" && (d = a - (o.clientX - s), u = c + (o.clientY - l), d > m && (y = i.left + (o.clientX - s))), r == "bottom-right" && (d = a + (o.clientX - s), u = c + (o.clientY - l)), e.style.width = d + "px", e.style.left = y + "px", o.clientY >= 0 && (e.style.height = u + "px", e.style.top = _ + "px"), t.resize({
+      r !== null && (r === "left" && (y = i.left + (o.clientX - s), d = a - (o.clientX - s)), r === "right" && (d = a + (o.clientX - s)), r === "top" && (u = c - (o.clientY - l), u > b && (f = i.top + (o.clientY - l))), r === "bottom" && (u = c + (o.clientY - l)), r == "top-left" && (d = a - (o.clientX - s), d > m && (y = i.left + (o.clientX - s)), u = c - (o.clientY - l), u > b && (f = i.top + (o.clientY - l))), r == "top-right" && (d = a + (o.clientX - s), d > m && (f = i.top + (o.clientY - l), u = c - (o.clientY - l))), r == "bottom-left" && (d = a - (o.clientX - s), u = c + (o.clientY - l), d > m && (y = i.left + (o.clientX - s))), r == "bottom-right" && (d = a + (o.clientX - s), u = c + (o.clientY - l)), e.style.width = d + "px", e.style.left = y + "px", o.clientY >= 0 && (e.style.height = u + "px", e.style.top = f + "px"), t.resize({
         x: e.getBoundingClientRect().x,
         y: e.getBoundingClientRect().y,
         width: e.clientWidth,
@@ -84,7 +84,7 @@ const k = /* @__PURE__ */ new Map(), X = (e, t) => {
   __name: "ModalBackdrop",
   emits: ["close"],
   setup(e, { emit: t }) {
-    const n = f(null), s = t, l = () => {
+    const n = _(null), s = t, l = () => {
       n.value.style.width = document.documentElement.clientWidth + "px", n.value.style.height = document.documentElement.clientHeight + "px";
     }, i = () => {
       s("close"), document.body.style.overflow = "";
@@ -179,10 +179,14 @@ const ie = /* @__PURE__ */ g(le, [["__scopeId", "data-v-6fa6eada"]]), se = { cla
     resize: {
       type: Boolean,
       default: !0
+    },
+    theme: {
+      type: String,
+      default: "white"
     }
   },
   setup(e) {
-    const t = f(!1), n = f(!1), s = f(!1), l = e, i = f(null), r = f(null), a = f(null);
+    const t = _(!1), n = _(!1), s = _(!1), l = e, i = _(null), r = _(null), a = _(null);
     let c;
     const m = () => {
       c = c || G(
@@ -214,17 +218,17 @@ const ie = /* @__PURE__ */ g(le, [["__scopeId", "data-v-6fa6eada"]]), se = { cla
         let o = Number(i.value.style.zIndex) - 1;
         o < 1e3 && (o = 1e3), i.value.style.setProperty("z-index", o.toString());
       }
-    }, _ = () => {
+    }, f = () => {
       n.value = !1, setTimeout(() => {
         t.value = !1;
       }, 150);
     }, y = () => {
-      l.staticBackdrop || _();
+      l.staticBackdrop || f();
     };
     return B(() => {
       X(l.name, {
         open: m,
-        close: _,
+        close: f,
         activate: d,
         deactivate: u,
         getZIndex: b
@@ -236,7 +240,7 @@ const ie = /* @__PURE__ */ g(le, [["__scopeId", "data-v-6fa6eada"]]), se = { cla
         onPointerdown: d,
         ref_key: "$modal",
         ref: i,
-        class: F(["modal", { "modal--hidden": !t.value, "modal-visible": n.value }])
+        class: F(["modal", { "modal--hidden": !t.value, "modal-visible": n.value, "modal--theme-black": l.theme === "black" }])
       }, [
         p("div", {
           ref_key: "$headerWrapper",
@@ -250,11 +254,11 @@ const ie = /* @__PURE__ */ g(le, [["__scopeId", "data-v-6fa6eada"]]), se = { cla
           }, [
             p("div", se, O(e.title), 1),
             p("div", re, [
-              C(ie, { onClose: _ })
+              C(ie, { onClose: f })
             ])
           ], 512)
         ], 512),
-        M(o.$slots, "default", {}, void 0, !0)
+        k(o.$slots, "default", {}, void 0, !0)
       ], 34),
       C(P, null, {
         default: q(() => [
@@ -268,10 +272,10 @@ const ie = /* @__PURE__ */ g(le, [["__scopeId", "data-v-6fa6eada"]]), se = { cla
     ]));
   }
 });
-const ge = /* @__PURE__ */ g(ce, [["__scopeId", "data-v-0a466129"]]), de = /* @__PURE__ */ w({
+const ge = /* @__PURE__ */ g(ce, [["__scopeId", "data-v-eab6b962"]]), de = /* @__PURE__ */ w({
   __name: "ModalFooter",
   setup(e) {
-    const t = f(null);
+    const t = _(null);
     let n = !0;
     return B(() => {
       n = t.value !== null && t.value.querySelectorAll("button").length > 0;
@@ -281,30 +285,30 @@ const ge = /* @__PURE__ */ g(ce, [["__scopeId", "data-v-0a466129"]]), de = /* @_
       ref: t,
       class: "modal-footer"
     }, [
-      M(s.$slots, "default", {}, void 0, !0)
+      k(s.$slots, "default", {}, void 0, !0)
     ], 512)) : E("", !0);
   }
 });
-const me = /* @__PURE__ */ g(de, [["__scopeId", "data-v-0db79781"]]);
+const me = /* @__PURE__ */ g(de, [["__scopeId", "data-v-9f703cbb"]]);
 const ae = {}, ue = { class: "modal-body" }, pe = { class: "modal-body__content" };
-function _e(e, t) {
+function fe(e, t) {
   return h(), v("div", ue, [
     p("div", pe, [
-      M(e.$slots, "default", {}, void 0, !0)
+      k(e.$slots, "default", {}, void 0, !0)
     ])
   ]);
 }
-const be = /* @__PURE__ */ g(ae, [["render", _e], ["__scopeId", "data-v-dc47cc62"]]);
-const fe = {}, he = { type: "button" };
+const be = /* @__PURE__ */ g(ae, [["render", fe], ["__scopeId", "data-v-dc47cc62"]]);
+const _e = {}, he = { type: "button" };
 function ye(e, t) {
   return h(), v("button", he, [
-    M(e.$slots, "default", {}, void 0, !0)
+    k(e.$slots, "default", {}, void 0, !0)
   ]);
 }
-const xe = /* @__PURE__ */ g(fe, [["render", ye], ["__scopeId", "data-v-f7bd57cd"]]), we = (e) => {
+const xe = /* @__PURE__ */ g(_e, [["render", ye], ["__scopeId", "data-v-eff1971f"]]), we = (e) => {
   var t;
   (t = W(e)) == null || t.open();
-}, Me = (e) => {
+}, ke = (e) => {
   var t;
   (t = W(e)) == null || t.close();
 };
@@ -313,7 +317,7 @@ export {
   xe as ModalButton,
   be as ModalContent,
   me as ModalFooter,
-  Me as close,
+  ke as close,
   we as open
 };
 //# sourceMappingURL=modal.js.map
