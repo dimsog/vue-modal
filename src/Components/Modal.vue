@@ -8,7 +8,7 @@ import { ModalPosition } from "../Types/ModalPosition";
 
 import ModalBackdrop from "./ModalBackdrop.vue";
 import ModalCloseButton from "./ModalCloseButton.vue";
-import {getMaxZIndexOfModals, getStartupModalPosition, normalizeSizeFromProps} from "../utils/modal-utils";
+import {getMaxZIndexOfModals, getStartupModalPosition, normalizeSizeFromProps, getScrollbarWidth} from "../utils/modal-utils";
 
 const modalIsOpened = ref(false);
 const modalIsVisible = ref(false);
@@ -68,6 +68,13 @@ const open = (): void => {
       normalizeSizeFromProps(props.width),
       normalizeSizeFromProps(props.height),
   );
+
+  const scrollbarWith = getScrollbarWidth();
+  if (scrollbarWith > 0) {
+    document.body.style.paddingRight = scrollbarWith + 'px';
+  }
+  document.body.style.overflow = 'hidden';
+
   modalIsOpened.value = true;
   setTimeout(() => modalIsVisible.value = true, 10);
 
@@ -128,6 +135,8 @@ const deactivate = (): void => {
 
 const close = (): void => {
   modalIsVisible.value = false;
+  document.body.style.paddingRight = '';
+  document.body.style.overflow = '';
   setTimeout(() => {
     modalIsOpened.value = false;
   }, 150);
