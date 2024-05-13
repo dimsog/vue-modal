@@ -18,11 +18,9 @@ onMounted((): void => {
   updateBackdropSize();
 
   window.addEventListener('resize', updateBackdropSize);
-  document.body.style.overflow = 'hidden';
 });
 
 onUnmounted((): void => {
-  document.body.style.overflow = '';
   window.removeEventListener('resize', updateBackdropSize);
 })
 </script>

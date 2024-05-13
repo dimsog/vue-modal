@@ -37,8 +37,13 @@ const getMaxZIndexOfModals = (): number => {
     return zIndex;
 }
 
+const getScrollbarWidth = (): number => {
+    return window.innerWidth - document.documentElement.clientWidth;
+}
+
 export {
     normalizeSizeFromProps,
     getStartupModalPosition,
     getMaxZIndexOfModals,
+    getScrollbarWidth,
 }
