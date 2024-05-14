@@ -11,7 +11,6 @@ const updateBackdropSize = (): void => {
 
 const onCloseBackdrop = (): void => {
   emit('close');
-  document.body.style.overflow = '';
 }
 
 onMounted((): void => {
