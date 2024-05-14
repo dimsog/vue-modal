@@ -87,7 +87,7 @@ const B = /* @__PURE__ */ new Map(), X = (e, t) => {
     const n = _(null), c = t, l = () => {
       n.value.style.width = document.documentElement.clientWidth + "px", n.value.style.height = document.documentElement.clientHeight + "px";
     }, i = () => {
-      c("close"), document.body.style.overflow = "";
+      c("close");
     };
     return z(() => {
       l(), window.addEventListener("resize", l);
@@ -106,7 +106,7 @@ const m = (e, t) => {
   for (const [c, l] of t)
     n[c] = l;
   return n;
-}, te = /* @__PURE__ */ m(ee, [["__scopeId", "data-v-84088cde"]]), ne = (e) => (N("data-v-6fa6eada"), e = e(), T(), e), oe = /* @__PURE__ */ ne(() => /* @__PURE__ */ p("svg", {
+}, te = /* @__PURE__ */ m(ee, [["__scopeId", "data-v-d7a9ea5b"]]), ne = (e) => (N("data-v-6fa6eada"), e = e(), T(), e), oe = /* @__PURE__ */ ne(() => /* @__PURE__ */ p("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   class: "icon icon-tabler icon-tabler-x",
   width: "24",
