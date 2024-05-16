@@ -1,9 +1,9 @@
 {
   "name": "@dimsog/vue-modal",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Vue 3 modal",
   "type": "module",
-  "main": "dist/modal.js",
+  "browser": "dist/modal.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/dimsog/vue-modal"

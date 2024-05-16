@@ -8,6 +8,7 @@ export default defineConfig({
     build: {
         sourcemap: true,
         cssCodeSplit: false,
+        target: "es2017",
         lib: {
             entry: resolve(__dirname, "src/modal.ts"),
             name: 'modal',

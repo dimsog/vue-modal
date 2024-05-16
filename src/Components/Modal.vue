@@ -58,88 +58,91 @@ const props = defineProps({
   }
 });
 
-const $modal = ref<HTMLElement | null>(null);
-const $headerWrapper = ref<HTMLElement | null>(null);
-const $header = ref<HTMLElement | null>(null);
-let modalPosition: ModalPosition;
+const $modal = ref<HTMLElement>();
+const $headerWrapper = ref<HTMLElement>();
+const $header = ref<HTMLElement>();
 
-const open = (): void => {
-  modalPosition = modalPosition || getStartupModalPosition(
-      normalizeSizeFromProps(props.width),
-      normalizeSizeFromProps(props.height),
-  );
+let modalPosition: ModalPosition = getStartupModalPosition(
+    normalizeSizeFromProps(props.width),
+    normalizeSizeFromProps(props.height),
+);
 
-  const scrollbarWith = getScrollbarWidth();
-  if (scrollbarWith > 0) {
-    document.body.style.paddingRight = scrollbarWith + 'px';
-  }
-  document.body.style.overflow = 'hidden';
-
-  modalIsOpened.value = true;
-  setTimeout(() => modalIsVisible.value = true, 10);
-
-  nextTick(async () => {
-    if ($modal.value === null || $headerWrapper.value === null) {
-      return;
+const open = ($modal: HTMLElement) => {
+  return () => {
+    const scrollbarWith = getScrollbarWidth();
+    if (scrollbarWith > 0) {
+      document.body.style.paddingRight = scrollbarWith + 'px';
     }
+    document.body.style.overflow = 'hidden';
 
-    activate();
+    modalIsOpened.value = true;
+    setTimeout(() => modalIsVisible.value = true, 10);
 
-    $modal.value.style.zIndex = (getMaxZIndexOfModals() + 1).toString();
-    $modal.value.style.minWidth = props.minWidth;
-    $modal.value.style.minHeight = props.minHeight;
+    nextTick(async () => {
+      activate($modal)();
 
-    updateModalSizeAndPosition($modal.value, modalPosition);
-    if (props.resize) {
-      resizeModal($modal.value, {
-        resize: (position: ModalPosition): void => {
-          modalPosition = position;
-        },
-      });
-    }
+      $modal.style.zIndex = (getMaxZIndexOfModals() + 1).toString();
+      $modal.style.minWidth = props.minWidth;
+      $modal.style.minHeight = props.minHeight;
 
-    moveModal($modal.value, {
-      move: (position: ModalPosition) => {
-        modalPosition = position;
+      updateModalSizeAndPosition($modal, modalPosition);
+      if (props.resize) {
+        resizeModal($modal, {
+          minWidth: normalizeSizeFromProps(props.minWidth),
+          minHeight: normalizeSizeFromProps(props.minHeight),
+          resize: (position: ModalPosition): void => {
+            modalPosition = position;
+          },
+        });
       }
+
+      moveModal($modal, {
+        move: (position: ModalPosition) => {
+          modalPosition = position;
+        }
+      });
     });
-  });
+  }
 };
 
-const getZIndex = (): number => {
-  return Number($modal.value?.style.zIndex ?? 1000);
+const getZIndex = ($modal: HTMLElement) => {
+  return (): number => {
+    return Number($modal.style.zIndex ?? 1000);
+  }
 }
 
-const activate = (): void => {
-  if ($modal.value === null || modalIsActive.value === true) {
-    return;
+const activate = ($modal: HTMLElement) => {
+  return () => {
+    if (modalIsActive.value === true) {
+      return;
+    }
+    for (const anotherModal of getModals().values()) {
+      anotherModal.deactivate();
+    }
+    let zIndex = getMaxZIndexOfModals() + 1;
+    modalIsActive.value = true;
+    $modal.style.zIndex = zIndex.toString();
   }
-  for (const anotherModal of getModals().values()) {
-    anotherModal.deactivate();
-  }
-  let zIndex = getMaxZIndexOfModals() + 1;
-  modalIsActive.value = true;
-  $modal.value.style.zIndex = zIndex.toString();
 }
 
-const deactivate = (): void => {
-  modalIsActive.value = false;
-  if ($modal.value !== null) {
-    let zIndex = Number($modal.value.style.zIndex) - 1;
+const deactivate = ($modal: HTMLElement) => {
+  return (): void => {
+    modalIsActive.value = false;
+    let zIndex = Number($modal.style.zIndex) - 1;
     if (zIndex < 1000) {
       zIndex = 1000;
     }
-    $modal.value.style.setProperty('z-index', zIndex.toString());
+    $modal.style.setProperty('z-index', zIndex.toString());
   }
 }
 
-const close = (): void => {
-  modalIsVisible.value = false;
-  document.body.style.paddingRight = '';
-  document.body.style.overflow = '';
-  setTimeout(() => {
-    modalIsOpened.value = false;
-  }, 150);
+const close = () => {
+    modalIsVisible.value = false;
+    document.body.style.paddingRight = '';
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      modalIsOpened.value = false;
+    }, 150);
 }
 
 const onCloseBackdrop = () => {
@@ -148,13 +151,17 @@ const onCloseBackdrop = () => {
   }
 }
 
+const onActivateModal = () => {
+  activate($modal.value)();
+}
+
 onMounted(():void => {
   addModal(props.name, {
-    open,
+    open: open($modal.value),
     close,
-    activate,
-    deactivate,
-    getZIndex,
+    activate: activate($modal.value),
+    deactivate: deactivate($modal.value),
+    getZIndex: getZIndex($modal.value),
   });
 });
 
@@ -165,7 +172,7 @@ onUnmounted((): void => {
 
 <template>
   <div>
-    <div @pointerdown="activate" ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened, 'modal-visible': modalIsVisible, 'modal--theme-black': props.theme === 'black'}">
+    <div @pointerdown="onActivateModal" ref="$modal" class="modal" :class="{'modal--hidden': !modalIsOpened, 'modal-visible': modalIsVisible, 'modal--theme-black': props.theme === 'black'}">
       <div ref="$headerWrapper" class="modal-header-wrapper">
         <div ref="$header" class="modal-header">
           <div class="modal-header__title">
